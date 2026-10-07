@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Muslim Ultra — Privacy-First Prayer Times, Quran & Deen Companion</title>
-  <meta name="description" content="Muslim Ultra is the premier, privacy-first Islamic companion app. Accurate on-device prayer times, authentic Tanzil Quran, real-time Qibla, and verified citation-backed AI Deen Companion.">
+  <title>Muslim Ultra — Privacy-First Prayer Times, Quran & Online Academy</title>
+  <meta name="description" content="Muslim Ultra is the premier, privacy-first Islamic companion app and Online Quran Academy. Accurate on-device prayer times, authentic Tanzil Quran, and live 1-on-1 Quran tutoring.">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
 </head>
 <body>
+
+  <!-- Top Announcement Banner -->
+  <div id="global-announcement-banner" style="display: none;"></div>
 
   <!-- Navbar -->
   <header class="navbar">
@@ -22,10 +27,11 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="#features">Features</a></li>
+        <li><a href="academy.html">Academy</a></li>
+        <li><a href="#features">App Features</a></li>
         <li><a href="privacy-policy.html">Privacy</a></li>
         <li><a href="support.html">Support</a></li>
-        <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank" class="btn-secondary">GitHub</a></li>
+        <li><a href="academy.html#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
       </ul>
     </div>
   </header>
@@ -33,13 +39,13 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <div class="badge-pill">🛡️ Strict Privacy-First Islamic App</div>
+      <div class="badge-pill">🛡️ Strict Privacy-First Islamic Ecosystem</div>
       <h1>Elevate Your Spiritual Journey With <span class="gold">Muslim Ultra</span></h1>
-      <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, Qibla compass, and citation-backed AI Deen Companion. Zero ads, zero commercial trackers, and 100% on-device location calculation.</p>
+      <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, Qibla compass, citation-backed AI Deen Companion, and live 1-on-1 Online Quran Academy.</p>
       
       <div class="hero-actions">
-        <a href="#features" class="btn-cta">Explore Features ✦</a>
-        <a href="privacy-policy.html" class="btn-secondary">Our Privacy Commitment</a>
+        <a href="academy.html" class="btn-cta">Explore Quran Academy →</a>
+        <a href="#features" class="btn-secondary">App Features ✦</a>
       </div>
 
       <!-- Hero Visual Highlight / Metric Cards -->
@@ -57,11 +63,46 @@
           <span class="card-tag">Full Offline Mode</span>
         </div>
         <div class="card" style="text-align: left;">
-          <div class="card-icon">🤖</div>
-          <h3>Deen Companion AI</h3>
-          <p>Grounded Islamic AI providing instant, bracketed citations from the Quran and authentic Hadith collections with four-madhab context.</p>
-          <span class="card-tag">Verified Citations</span>
+          <div class="card-icon">🎓</div>
+          <h3>Live 1-on-1 Academy</h3>
+          <p>Personalized Noorani Qaida, Tajweed, and Hifz classes for kids and adults with certified Ijazah tutors.</p>
+          <span class="card-tag">3-Day Free Trial</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACADEMY TEASER SECTION (New A2 Requirement) -->
+  <section class="academy-section" style="background: radial-gradient(circle at 50% 50%, rgba(201, 162, 39, 0.08) 0%, rgba(10, 22, 40, 0.95) 100%); border-top: 1px solid var(--midnight-border); border-bottom: 1px solid var(--midnight-border);">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">✦ Muslim Ultra Quran Academy</div>
+        <h2>Learn Quran Online with Certified Instructors</h2>
+        <p>Interactive 1-on-1 live sessions for beginners, children, and advanced reciters worldwide.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 2.5rem;">
+        <div class="card">
+          <div class="card-icon">👶</div>
+          <h3>Noorani Qaida for Kids</h3>
+          <p>Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎙️</div>
+          <h3>Tajweed & Tarteel Mastery</h3>
+          <p>Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧠</div>
+          <h3>Hifz-ul-Quran Memorization</h3>
+          <p>Custom daily revision and memorization schedule guided by experienced Huffaz mentors.</p>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <a href="academy.html" class="btn-cta" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
+          Visit Quran Academy & Book Free Trial &rarr;
+        </a>
       </div>
     </div>
   </section>
@@ -135,13 +176,21 @@
             <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
             <span class="brand-name">Muslim Ultra</span>
           </div>
-          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and authentic Islamic knowledge.</p>
+          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and certified online Quran academy.</p>
         </div>
         <div class="footer-col">
-          <h4>Navigation</h4>
+          <h4>Academy</h4>
+          <ul>
+            <li><a href="academy.html#programs">Programs & Tuition</a></li>
+            <li><a href="academy.html#teachers">Certified Instructors</a></li>
+            <li><a href="academy.html#trial-booking">Book Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>App & Legal</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="#features">Features</a></li>
+            <li><a href="index.html#features">Features</a></li>
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
             <li><a href="support.html">Support & Help</a></li>
           </ul>
@@ -156,7 +205,7 @@
       </div>
       <div class="footer-bottom">
         <div>&copy; 2026 Muslim Ultra. All rights reserved.</div>
-        <div>Crafted with Midnight Navy & Celestial Gold tokens.</div>
+        <div><a href="admin.html" class="footer-admin-link">Staff Admin Portal &rarr;</a></div>
       </div>
     </div>
   </footer>

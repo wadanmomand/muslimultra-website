@@ -10,8 +10,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
 </head>
 <body>
+
+  <!-- Top Announcement Banner -->
+  <div id="global-announcement-banner" style="display: none;"></div>
 
   <!-- Navbar -->
   <header class="navbar">
@@ -22,10 +27,11 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
+        <li><a href="academy.html">Academy</a></li>
         <li><a href="index.html#features">Features</a></li>
         <li><a href="privacy-policy.html" class="active">Privacy</a></li>
         <li><a href="support.html">Support</a></li>
-        <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank" class="btn-secondary">GitHub</a></li>
+        <li><a href="academy.html#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
       </ul>
     </div>
   </header>
@@ -102,7 +108,15 @@
           <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and authentic Islamic knowledge.</p>
         </div>
         <div class="footer-col">
-          <h4>Navigation</h4>
+          <h4>Academy</h4>
+          <ul>
+            <li><a href="academy.html#programs">Programs & Tuition</a></li>
+            <li><a href="academy.html#teachers">Certified Instructors</a></li>
+            <li><a href="academy.html#trial-booking">Book Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>App & Legal</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#features">Features</a></li>
@@ -120,7 +134,7 @@
       </div>
       <div class="footer-bottom">
         <div>&copy; 2026 Muslim Ultra. All rights reserved.</div>
-        <div>Crafted with Midnight Navy & Celestial Gold tokens.</div>
+        <div><a href="admin.html" class="footer-admin-link">Staff Admin Portal &rarr;</a></div>
       </div>
     </div>
   </footer>

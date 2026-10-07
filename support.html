@@ -4,14 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Support & Help Center — Muslim Ultra</title>
-  <meta name="description" content="Muslim Ultra Support & Help Center - FAQs, prayer times troubleshooting, Qibla calibration, and direct assistance.">
+  <meta name="description" content="Muslim Ultra Support & Help Center - FAQs, prayer times troubleshooting, Qibla calibration, academy questions, and direct assistance.">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
 </head>
 <body>
+
+  <!-- Top Announcement Banner -->
+  <div id="global-announcement-banner" style="display: none;"></div>
 
   <!-- Navbar -->
   <header class="navbar">
@@ -22,10 +27,11 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
+        <li><a href="academy.html">Academy</a></li>
         <li><a href="index.html#features">Features</a></li>
         <li><a href="privacy-policy.html">Privacy</a></li>
         <li><a href="support.html" class="active">Support</a></li>
-        <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank" class="btn-secondary">GitHub</a></li>
+        <li><a href="academy.html#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
       </ul>
     </div>
   </header>
@@ -34,22 +40,67 @@
   <div class="container">
     <main class="page-content">
       <div class="page-header">
-        <div class="badge-pill">💬 Help Center</div>
+        <div class="badge-pill">💬 Help & Contact</div>
         <h1>Support & Assistance</h1>
-        <p class="subtitle">Quick guides, troubleshooting steps, and direct engineering support.</p>
+        <p class="subtitle">Quick guides, troubleshooting steps, and direct engineering & academy support.</p>
       </div>
 
-      <!-- Quick Contact Box -->
-      <div class="privacy-banner" style="margin: 0 0 3rem; padding: 2rem;">
-        <div class="privacy-banner-content">
-          <h3 style="font-size: 1.4rem;">Direct Support Contact</h3>
-          <p>Have an issue, bug report, or calculation feedback? Our team responds within 24–48 hours.</p>
+      <!-- Contact Grid: Form + Quick Info -->
+      <div class="grid-2" style="margin-bottom: 3.5rem;">
+        
+        <!-- Contact Form -->
+        <div class="form-card">
+          <h2 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 0.5rem;">Send Us a Message</h2>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">Have questions about the mobile app, prayer calculations, or Quran academy enrollment?</p>
+
+          <div id="contact-alert" style="display: none;"></div>
+
+          <form id="contact-form">
+            <div class="form-group">
+              <label class="form-label" for="contact_name">Your Name *</label>
+              <input type="text" id="contact_name" class="form-control" placeholder="e.g. Brother Zayd / Sister Maryam" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact_email">Email Address *</label>
+              <input type="email" id="contact_email" class="form-control" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact_msg">Message / Inquiry *</label>
+              <textarea id="contact_msg" class="form-control" placeholder="How can we assist you?" required></textarea>
+            </div>
+
+            <button type="submit" id="contact-submit-btn" class="btn-cta" style="width: 100%; padding: 0.9rem;">
+              Send Message &rarr;
+            </button>
+          </form>
         </div>
-        <div>
-          <a href="mailto:supportmuslimultra@gmail.com" class="btn-cta">Email Support Team ✉</a>
+
+        <!-- Direct Contact Cards -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="card">
+            <div class="card-icon">✉️</div>
+            <h3>Email Support</h3>
+            <p>Our dedicated engineering and support team responds to all inquiries within 24–48 hours.</p>
+            <a href="mailto:supportmuslimultra@gmail.com" class="btn-secondary" style="margin-top: 1rem; align-self: flex-start;">
+              supportmuslimultra@gmail.com &rarr;
+            </a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>Academy WhatsApp</h3>
+            <p>For immediate assistance regarding trial classes, schedule adjustments, or fee structures.</p>
+            <a href="https://wa.me/923000000000?text=Assalam-o-Alaikum%2C%20I%20need%20support%20regarding%20Muslim%20Ultra." target="_blank" class="btn-secondary" style="margin-top: 1rem; align-self: flex-start; border-color: #25D366; color: #86efac;">
+              Chat on WhatsApp &rarr;
+            </a>
+          </div>
         </div>
+
       </div>
 
+      <!-- FAQ Section -->
       <div class="policy-card">
         <h2>Frequently Asked Questions</h2>
 
@@ -92,10 +143,10 @@
 
         <div class="accordion-item">
           <div class="accordion-header">
-            <span>Can I listen to Quran recitations offline?</span>
+            <span>How does the Online Quran Academy work?</span>
           </div>
           <div class="accordion-body">
-            <p>Yes. Tap the download icon next to any Surah to save the high-quality EveryAyah recitations locally on your device for instant offline playback anytime without data.</p>
+            <p>Classes are conducted 1-on-1 via interactive video conferencing (Zoom / Google Meet). Once you book a trial, our coordinator schedules a convenient time slot with a qualified tutor.</p>
           </div>
         </div>
 
@@ -121,19 +172,27 @@
             <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
             <span class="brand-name">Muslim Ultra</span>
           </div>
-          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and authentic Islamic knowledge.</p>
+          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and online Quran academy.</p>
         </div>
         <div class="footer-col">
-          <h4>Navigation</h4>
+          <h4>Academy</h4>
+          <ul>
+            <li><a href="academy.html#programs">Programs & Tuition</a></li>
+            <li><a href="academy.html#teachers">Certified Instructors</a></li>
+            <li><a href="academy.html#trial-booking">Book Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>App & Legal</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#features">Features</a></li>
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="support.html">Support & Help</a></li>
+            <li><a href="support.html">Support Center</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Connect</h4>
+          <h4>Direct Contact</h4>
           <ul>
             <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>
             <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank">GitHub Repository</a></li>
@@ -142,10 +201,52 @@
       </div>
       <div class="footer-bottom">
         <div>&copy; 2026 Muslim Ultra. All rights reserved.</div>
-        <div>Crafted with Midnight Navy & Celestial Gold tokens.</div>
+        <div><a href="admin.html" class="footer-admin-link">Staff Admin Portal &rarr;</a></div>
       </div>
     </div>
   </footer>
+
+  <!-- Contact Form Controller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.getElementById('contact-form');
+      const alertBox = document.getElementById('contact-alert');
+      const submitBtn = document.getElementById('contact-submit-btn');
+
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+        alertBox.style.display = 'none';
+
+        const name = document.getElementById('contact_name').value.trim();
+        const email = document.getElementById('contact_email').value.trim();
+        const message = document.getElementById('contact_msg').value.trim();
+
+        try {
+          await submitContactMessage({ name, email, message });
+          alertBox.className = 'alert-box alert-success';
+          alertBox.innerHTML = `
+            <strong>Thank you, ${name}!</strong> Your message has been sent successfully. We will reply to <strong>${email}</strong> shortly.
+          `;
+          alertBox.style.display = 'block';
+          contactForm.reset();
+        } catch (err) {
+          console.warn('Supabase contact submission error:', err);
+          // Mailto fallback
+          window.location.href = `mailto:supportmuslimultra@gmail.com?subject=Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}`;
+          alertBox.className = 'alert-box alert-success';
+          alertBox.innerHTML = `
+            <strong>Notice:</strong> Message client opened. You can also reach us directly at <a href="mailto:supportmuslimultra@gmail.com" style="color: var(--gold-light);">supportmuslimultra@gmail.com</a>.
+          `;
+          alertBox.style.display = 'block';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Send Message →';
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

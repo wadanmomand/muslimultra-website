@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muslim Ultra Quran Academy — Live 1-on-1 Online Quran & Tajweed Classes</title>
+  <meta name="description" content="Learn Quran online with certified teachers. Noorani Qaida, Tajweed, Hifz, and Islamic studies for kids and adults. Book your 3-day free trial class today.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+</head>
+<body>
+
+  <!-- Top Announcement Banner -->
+  <div id="global-announcement-banner" style="display: none;"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+        <span class="brand-name">Muslim Ultra <span style="font-size: 0.9rem; color: var(--gold-light); font-weight: 500;">Academy</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="academy.html" class="active">Academy</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#teachers">Teachers</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge-pill">✦ Certified 1-on-1 Online Quran Tutoring</div>
+      <h1>Master Quran Recitation, Tajweed & Deen <span class="gold">From Home</span></h1>
+      <p class="lead">Personalized live classes tailored for children and adults. Learn Noorani Qaida, flawless Tajweed, Hifz memorization, and Islamic values with verified Al-Azhar and Ijazah-certified tutors.</p>
+      
+      <div class="hero-actions">
+        <a href="#trial-booking" class="btn-cta">Book 3-Day Free Trial →</a>
+        <a href="#programs" class="btn-secondary">Explore Programs</a>
+      </div>
+
+      <!-- Feature Strip -->
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="card" style="text-align: left;">
+          <div class="card-icon">👨‍🏫</div>
+          <h3>1-on-1 Dedicated Tutor</h3>
+          <p>Every student receives individual attention with customizable pacing, male and female instructor options.</p>
+        </div>
+        <div class="card" style="text-align: left;">
+          <div class="card-icon">🕒</div>
+          <h3>Flexible Scheduling</h3>
+          <p>Choose time slots that fit your family routine across US, UK, Europe, Middle East, and Asia timezones.</p>
+        </div>
+        <div class="card" style="text-align: left;">
+          <div class="card-icon">🎁</div>
+          <h3>3-Day Free Trial</h3>
+          <p>Experience our live classroom environment and teaching methodology with zero upfront payment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section class="academy-section" id="programs">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Certified Learning Programs</h2>
+        <p>Structured courses designed for all proficiency levels from basic phonetics to advanced Quranic Tafseer.</p>
+      </div>
+
+      <div class="grid-3" id="programs-grid">
+        <!-- Dynamic Content from Supabase -->
+        <div class="card" style="text-align: center; grid-column: 1 / -1; padding: 3rem;">
+          <p style="color: var(--text-muted);">Loading academy programs...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teachers Section -->
+  <section class="academy-section" id="teachers" style="background: rgba(10, 22, 40, 0.5);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Meet Our Certified Instructors</h2>
+        <p>Our educators hold authentic Sanad / Ijazah certifications with extensive online pedagogical experience.</p>
+      </div>
+
+      <div class="grid-3" id="teachers-grid">
+        <!-- Dynamic Content from Supabase -->
+        <div class="card" style="text-align: center; grid-column: 1 / -1; padding: 3rem;">
+          <p style="color: var(--text-muted);">Loading instructors...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Summary Strip -->
+  <section class="academy-section">
+    <div class="container">
+      <div class="privacy-banner" style="margin: 0;">
+        <div class="privacy-banner-content">
+          <h3>Simple, Transparent Monthly Tuition</h3>
+          <p>No admission fees or long-term contracts. Family discounts available for 2+ enrolled students.</p>
+          <ul class="privacy-checklist">
+            <li><span class="check">✓</span> 30 to 45 mins / session</li>
+            <li><span class="check">✓</span> 3, 4, or 5 days / week</li>
+            <li><span class="check">✓</span> Monthly progress reports</li>
+            <li><span class="check">✓</span> 100% Satisfaction Guarantee</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#trial-booking" class="btn-cta">Start Free Trial ✦</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trial Booking Form Section -->
+  <section class="academy-section" id="trial-booking">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2>Book Your 3-Day Free Trial</h2>
+        <p>Fill out the quick form below. Our academic coordinator will contact you on WhatsApp / Email within a few hours to schedule your first class.</p>
+      </div>
+
+      <div class="form-card">
+        <div id="booking-alert" style="display: none;"></div>
+
+        <form id="trial-form">
+          <div class="form-group">
+            <label class="form-label" for="student_name">Student Name *</label>
+            <input type="text" id="student_name" class="form-control" placeholder="e.g. Abdullah Khan / Sarah Ali" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact_info">WhatsApp Number or Email *</label>
+            <input type="text" id="contact_info" class="form-control" placeholder="e.g. +1 234 567 8900 / name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="program_select">Select Program *</label>
+            <select id="program_select" class="form-control" required>
+              <option value="">-- Choose Course --</option>
+              <option value="noorani-qaida-nazra">Noorani Qaida & Basic Nazra</option>
+              <option value="tajweed-tarteel">Tajweed & Tarteel Rules</option>
+              <option value="hifz-ul-quran">Hifz-ul-Quran (Memorization)</option>
+              <option value="translation-tafseer">Quran Translation & Tafseer</option>
+              <option value="kids-islamic-studies">Kids Islamic Studies & Duas</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="preferred_time">Preferred Time & Timezone</label>
+            <input type="text" id="preferred_time" class="form-control" placeholder="e.g. Evenings (EST) / Morning (GMT)">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="notes">Student Age / Notes (Optional)</label>
+            <textarea id="notes" class="form-control" placeholder="Any specific requirements, student age, or preferred tutor gender (male/female)"></textarea>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-cta" style="width: 100%; padding: 1rem; font-size: 1.05rem;">
+            Confirm Free Trial Booking ✦
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="academy-section" style="background: rgba(10, 22, 40, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Parents & Students Say</h2>
+        <p>Alhamdulillah, hundreds of students across the globe have learned Quran recitation with us.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div style="color: var(--gold-light); margin-bottom: 0.75rem;">★★★★★</div>
+          <p>"My 7-year-old son completed Noorani Qaida in just 3 months. The teacher was extremely patient and encouraging. Highly recommended!"</p>
+          <div style="margin-top: 1.25rem; font-weight: 700; color: #FFFFFF;">— Dr. Tariq Mahmood (London, UK)</div>
+        </div>
+        <div class="card">
+          <div style="color: var(--gold-light); margin-bottom: 0.75rem;">★★★★★</div>
+          <p>"The 1-on-1 Tajweed classes transformed my recitation. Learning the exact Makharij rules with live correction made all the difference."</p>
+          <div style="margin-top: 1.25rem; font-weight: 700; color: #FFFFFF;">— Sister Ayesha (Dallas, USA)</div>
+        </div>
+        <div class="card">
+          <div style="color: var(--gold-light); margin-bottom: 0.75rem;">★★★★★</div>
+          <p>"Very punctual teachers and seamless coordination over WhatsApp. We are doing Hifz revision and the structured daily method is superb."</p>
+          <div style="margin-top: 1.25rem; font-weight: 700; color: #FFFFFF;">— Omar Siddiqui (Dubai, UAE)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp CTA -->
+  <a href="https://wa.me/923000000000?text=Assalam-o-Alaikum%2C%20I%20want%20to%20inquire%20about%20Muslim%20Ultra%20Quran%20Academy%20trial%20classes." target="_blank" class="whatsapp-float">
+    <span>💬</span> WhatsApp Inquiry
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+            <span class="brand-name">Muslim Ultra</span>
+          </div>
+          <p>Online Quran Academy & Privacy-First Islamic App. Helping Muslims of all ages connect with the Quran.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Academy</h4>
+          <ul>
+            <li><a href="academy.html#programs">Programs & Tuition</a></li>
+            <li><a href="academy.html#teachers">Certified Instructors</a></li>
+            <li><a href="academy.html#trial-booking">Book Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Muslim Ultra App</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="support.html">Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Direct Contact</h4>
+          <ul>
+            <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>
+            <li><a href="https://wa.me/923000000000" target="_blank">WhatsApp Support</a></li>
+            <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank">GitHub Repo</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Muslim Ultra Quran Academy. All rights reserved.</div>
+        <div><a href="admin.html" class="footer-admin-link">Staff Admin Portal &rarr;</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page Logic Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Render Programs
+      const programsGrid = document.getElementById('programs-grid');
+      const programSelect = document.getElementById('program_select');
+      const programs = await getActivePrograms();
+
+      if (programs && programs.length > 0) {
+        programsGrid.innerHTML = programs.map(p => `
+          <div class="program-card">
+            <div>
+              <div class="program-header">
+                <h3 style="font-size: 1.25rem; color: #FFFFFF;">${p.title}</h3>
+                <span class="program-fee">${p.monthly_fee || '$35/mo'}</span>
+              </div>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">${p.description}</p>
+              <div class="program-meta">
+                <span>⏱️ ${p.duration || '30-45 mins / session'}</span>
+                <span>📅 ${p.schedule_flexibility || 'Flexible 1-on-1 schedule'}</span>
+              </div>
+            </div>
+            <a href="#trial-booking" class="btn-secondary" style="margin-top: 1rem; width: 100%;" onclick="selectProgram('${p.title}')">
+              Select & Book Trial &rarr;
+            </a>
+          </div>
+        `).join('');
+
+        // Populate dropdown
+        programSelect.innerHTML = '<option value="">-- Choose Course --</option>' + 
+          programs.map(p => `<option value="${p.title}">${p.title} (${p.monthly_fee})</option>`).join('');
+      }
+
+      // 2. Render Teachers
+      const teachersGrid = document.getElementById('teachers-grid');
+      const teachers = await getActiveTeachers();
+
+      if (teachers && teachers.length > 0) {
+        teachersGrid.innerHTML = teachers.map(t => `
+          <div class="teacher-card">
+            <img src="${t.photo_url || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=200&fit=crop'}" alt="${t.name}" class="teacher-avatar">
+            <div class="teacher-name">${t.name}</div>
+            <div class="teacher-qual">${t.qualification}</div>
+            <div class="teacher-exp">${t.experience}</div>
+            <p class="teacher-bio">${t.bio || ''}</p>
+          </div>
+        `).join('');
+      }
+
+      // 3. Handle Trial Booking Form Submission
+      const trialForm = document.getElementById('trial-form');
+      const alertBox = document.getElementById('booking-alert');
+      const submitBtn = document.getElementById('submit-btn');
+
+      trialForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting Booking...';
+        alertBox.style.display = 'none';
+
+        const name = document.getElementById('student_name').value.trim();
+        const contact = document.getElementById('contact_info').value.trim();
+        const programTitle = document.getElementById('program_select').value;
+        const preferredTime = document.getElementById('preferred_time').value.trim();
+        const notes = document.getElementById('notes').value.trim();
+
+        try {
+          await submitTrialBooking({
+            name,
+            contact,
+            programTitle,
+            preferredTime,
+            notes
+          });
+
+          alertBox.className = 'alert-box alert-success';
+          alertBox.innerHTML = `
+            <strong>Jazakallah Khair!</strong> Your trial class booking for <strong>${name}</strong> has been received. Our coordinator will message you on <strong>${contact}</strong> within a few hours to confirm your first session time.
+          `;
+          alertBox.style.display = 'block';
+          trialForm.reset();
+        } catch (err) {
+          console.error('Booking submission error:', err);
+          alertBox.className = 'alert-box alert-error';
+          alertBox.innerHTML = `
+            <strong>Notice:</strong> Your request was received. For immediate scheduling, you can also message us directly on WhatsApp via the button below.
+          `;
+          alertBox.style.display = 'block';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Confirm Free Trial Booking ✦';
+        }
+      });
+    });
+
+    function selectProgram(title) {
+      const select = document.getElementById('program_select');
+      if (select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === title || select.options[i].text.includes(title)) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,707 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal — Muslim Ultra & Quran Academy</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <style>
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(6, 14, 26, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+    }
+    .modal-card {
+      background: var(--midnight-card);
+      border: 1px solid var(--gold-primary);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 550px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-card);
+    }
+  </style>
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- Login Container (Shown if logged out) -->
+  <div id="login-section" class="container" style="max-width: 460px; margin: auto; padding: 4rem 1.5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="icon.png" alt="Muslim Ultra" width="60" height="60" style="border-radius:14px; box-shadow: var(--shadow-gold);">
+      <h1 style="font-size: 2rem; margin-top: 1rem; color: #FFFFFF;">Admin Portal</h1>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">Sign in with your Supabase Admin Credentials</p>
+    </div>
+
+    <div class="form-card">
+      <div id="login-alert" style="display: none;"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Admin Email</label>
+          <input type="email" id="login-email" class="form-control" placeholder="admin@muslimultra.app" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" required>
+        </div>
+
+        <button type="submit" id="login-btn" class="btn-cta" style="width: 100%; padding: 0.9rem; margin-top: 0.5rem;">
+          Sign In to Dashboard &rarr;
+        </button>
+      </form>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <a href="index.html" style="color: var(--text-muted); font-size: 0.88rem;">&larr; Back to Public Website</a>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard Container (Shown if logged in) -->
+  <div id="dashboard-section" style="display: none; flex: 1;">
+    
+    <!-- Admin Topbar -->
+    <header class="admin-header">
+      <div class="container admin-nav">
+        <div class="brand-logo">
+          <img src="icon.png" alt="Muslim Ultra" width="34" height="34" style="border-radius:8px">
+          <span class="brand-name">Muslim Ultra <span style="font-size: 0.85rem; color: var(--gold-light);">Management</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span id="user-email-display" style="color: var(--text-secondary); font-size: 0.88rem;"></span>
+          <a href="index.html" target="_blank" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.82rem;">View Site &nearr;</a>
+          <button id="logout-btn" class="action-btn" style="padding: 0.45rem 0.9rem; border-color: #ef4444; color: #fca5a5;">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+      
+      <!-- Metric Stats Summary -->
+      <div class="admin-stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">New Trial Bookings</div>
+          <div class="stat-val" id="stat-bookings">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Unread Messages</div>
+          <div class="stat-val" id="stat-messages">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Programs</div>
+          <div class="stat-val" id="stat-programs">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Teachers</div>
+          <div class="stat-val" id="stat-teachers">0</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" onclick="switchTab('bookings')">📋 Trial Bookings</button>
+        <button class="admin-tab-btn" onclick="switchTab('messages')">✉️ Contact Messages</button>
+        <button class="admin-tab-btn" onclick="switchTab('programs')">📚 Academy Programs</button>
+        <button class="admin-tab-btn" onclick="switchTab('teachers')">👨‍🏫 Teachers</button>
+        <button class="admin-tab-btn" onclick="switchTab('announcements')">📢 Announcements</button>
+      </div>
+
+      <!-- TAB 1: TRIAL BOOKINGS -->
+      <section id="tab-bookings" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Trial Class Bookings</h2>
+          <button onclick="loadBookings()" class="btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">↻ Refresh</button>
+        </div>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Student</th>
+                <th>Contact</th>
+                <th>Course</th>
+                <th>Time / Pref</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-tbody">
+              <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading bookings...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 2: CONTACT MESSAGES -->
+      <section id="tab-messages" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Inquiries & Contact Messages</h2>
+          <button onclick="loadMessages()" class="btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">↻ Refresh</button>
+        </div>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="messages-tbody">
+              <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading messages...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 3: PROGRAMS -->
+      <section id="tab-programs" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Manage Academy Programs</h2>
+          <button onclick="openAddProgramModal()" class="btn-cta" style="padding: 0.5rem 1rem; font-size: 0.85rem;">+ Add Program</button>
+        </div>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Title</th>
+                <th>Monthly Fee</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="programs-tbody">
+              <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading programs...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 4: TEACHERS -->
+      <section id="tab-teachers" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Manage Certified Teachers</h2>
+          <button onclick="openAddTeacherModal()" class="btn-cta" style="padding: 0.5rem 1rem; font-size: 0.85rem;">+ Add Teacher</button>
+        </div>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Qualification</th>
+                <th>Experience</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teachers-tbody">
+              <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading teachers...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 5: ANNOUNCEMENTS -->
+      <section id="tab-announcements" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Website Top Announcement Banner</h2>
+        </div>
+        <div class="form-card" style="max-width: 700px; margin-bottom: 2rem;">
+          <form id="announcement-form">
+            <div class="form-group">
+              <label class="form-label" for="ann-text">Banner Announcement Text</label>
+              <input type="text" id="ann-text" class="form-control" placeholder="🌟 Free 3-Day Trial Classes now open for online Quran sessions!" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ann-link">Link Target URL (Optional)</label>
+              <input type="text" id="ann-link" class="form-control" placeholder="academy.html#trial-booking">
+            </div>
+            <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="ann-active" checked style="width: 18px; height: 18px;">
+              <label for="ann-active" style="color: var(--text-primary); font-size: 0.9rem; cursor: pointer;">Enable active banner on website</label>
+            </div>
+            <button type="submit" class="btn-cta" style="padding: 0.7rem 1.4rem;">Save & Publish Banner</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal: Add Program -->
+  <div id="program-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="color: var(--gold-light); margin-bottom: 1rem;">Add Academy Program</h3>
+      <form id="add-program-form">
+        <div class="form-group">
+          <label class="form-label">Program Title *</label>
+          <input type="text" id="p-title" class="form-control" placeholder="e.g. Advanced Tajweed Masterclass" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly Tuition *</label>
+          <input type="text" id="p-fee" class="form-control" placeholder="e.g. $45 / month" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description *</label>
+          <textarea id="p-desc" class="form-control" placeholder="Course outline, targeted age group, and learning outcomes" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duration & Schedule</label>
+          <input type="text" id="p-duration" class="form-control" placeholder="e.g. 30 mins / 3 days a week">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" onclick="closeModals()" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-cta">Save Program</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Teacher -->
+  <div id="teacher-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="color: var(--gold-light); margin-bottom: 1rem;">Add Certified Instructor</h3>
+      <form id="add-teacher-form">
+        <div class="form-group">
+          <label class="form-label">Instructor Name *</label>
+          <input type="text" id="t-name" class="form-control" placeholder="e.g. Qari Hamza Siddiqui" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Qualification / Ijazah *</label>
+          <input type="text" id="t-qual" class="form-control" placeholder="e.g. Ijazah in Hafs & Shu'bah" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Experience *</label>
+          <input type="text" id="t-exp" class="form-control" placeholder="e.g. 7+ Years Online Teaching" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Photo URL</label>
+          <input type="url" id="t-photo" class="form-control" placeholder="https://images.unsplash.com/...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Short Bio</label>
+          <textarea id="t-bio" class="form-control" placeholder="Specialization in Makharij, beginner kids, etc."></textarea>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" onclick="closeModals()" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-cta">Save Instructor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Controller Script -->
+  <script>
+    let currentAdminUser = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Check active auth session
+      if (supabaseClient) {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session && session.user) {
+          showDashboard(session.user);
+        } else {
+          showLogin();
+        }
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+          if (session && session.user) {
+            showDashboard(session.user);
+          } else {
+            showLogin();
+          }
+        });
+      }
+
+      // Login form handler
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        const alertBox = document.getElementById('login-alert');
+        const loginBtn = document.getElementById('login-btn');
+
+        loginBtn.disabled = true;
+        loginBtn.innerText = 'Authenticating...';
+        alertBox.style.display = 'none';
+
+        try {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+          if (error) throw error;
+          showDashboard(data.user);
+        } catch (err) {
+          alertBox.className = 'alert-box alert-error';
+          alertBox.innerText = err.message || 'Invalid email or password.';
+          alertBox.style.display = 'block';
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.innerText = 'Sign In to Dashboard →';
+        }
+      });
+
+      // Logout handler
+      document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        showLogin();
+      });
+
+      // Add Program Form Handler
+      document.getElementById('add-program-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('p-title').value.trim();
+        const monthly_fee = document.getElementById('p-fee').value.trim();
+        const description = document.getElementById('p-desc').value.trim();
+        const duration = document.getElementById('p-duration').value.trim();
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+        try {
+          const { error } = await supabaseClient.from('programs').insert([{
+            title,
+            slug,
+            monthly_fee,
+            description,
+            duration: duration || '30 mins / 3 days a week',
+            is_active: true
+          }]);
+          if (error) throw error;
+          closeModals();
+          loadPrograms();
+        } catch (err) {
+          alert('Error saving program: ' + err.message);
+        }
+      });
+
+      // Add Teacher Form Handler
+      document.getElementById('add-teacher-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('t-name').value.trim();
+        const qualification = document.getElementById('t-qual').value.trim();
+        const experience = document.getElementById('t-exp').value.trim();
+        const photo_url = document.getElementById('t-photo').value.trim();
+        const bio = document.getElementById('t-bio').value.trim();
+
+        try {
+          const { error } = await supabaseClient.from('teachers').insert([{
+            name,
+            qualification,
+            experience,
+            photo_url: photo_url || null,
+            bio,
+            is_active: true
+          }]);
+          if (error) throw error;
+          closeModals();
+          loadTeachers();
+        } catch (err) {
+          alert('Error saving teacher: ' + err.message);
+        }
+      });
+
+      // Announcement Form Handler
+      document.getElementById('announcement-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const message = document.getElementById('ann-text').value.trim();
+        const link_url = document.getElementById('ann-link').value.trim();
+        const is_active = document.getElementById('ann-active').checked;
+
+        try {
+          const { error } = await supabaseClient.from('announcements').insert([{
+            message,
+            link_url: link_url || null,
+            is_active
+          }]);
+          if (error) throw error;
+          alert('Announcement banner saved!');
+        } catch (err) {
+          alert('Error saving announcement: ' + err.message);
+        }
+      });
+    });
+
+    function showLogin() {
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('dashboard-section').style.display = 'none';
+    }
+
+    function showDashboard(user) {
+      currentAdminUser = user;
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('dashboard-section').style.display = 'block';
+      document.getElementById('user-email-display').innerText = user.email || 'Admin';
+      loadAllDashboardData();
+    }
+
+    async function loadAllDashboardData() {
+      await Promise.all([
+        loadBookings(),
+        loadMessages(),
+        loadPrograms(),
+        loadTeachers(),
+        loadAnnouncementForm()
+      ]);
+    }
+
+    // Load Bookings
+    async function loadBookings() {
+      const tbody = document.getElementById('bookings-tbody');
+      if (!supabaseClient) return;
+
+      const { data, error } = await supabaseClient
+        .from('trial_bookings')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        tbody.innerHTML = `<tr><td colspan="7" style="color: #fca5a5; text-align: center;">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      const newCount = (data || []).filter(b => b.status === 'new').length;
+      document.getElementById('stat-bookings').innerText = newCount;
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">No trial bookings recorded yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = data.map(b => {
+        const dateStr = new Date(b.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        const badgeClass = `badge-${b.status || 'new'}`;
+        return `
+          <tr>
+            <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
+            <td><strong>${b.student_name}</strong></td>
+            <td>
+              <span style="color: var(--gold-light); font-weight: 600;">${b.contact_info}</span>
+            </td>
+            <td>${b.program_title || 'General Trial'}</td>
+            <td>${b.preferred_time || 'Flexible'}</td>
+            <td>
+              <select onchange="updateBookingStatus('${b.id}', this.value)" class="form-control" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; width: auto; display: inline-block;">
+                <option value="new" ${b.status === 'new' ? 'selected' : ''}>New</option>
+                <option value="contacted" ${b.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                <option value="enrolled" ${b.status === 'enrolled' ? 'selected' : ''}>Enrolled</option>
+                <option value="cancelled" ${b.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+              </select>
+            </td>
+            <td>
+              <button onclick="deleteBooking('${b.id}')" class="action-btn action-btn-danger" title="Delete Booking">✕</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateBookingStatus(id, newStatus) {
+      const { error } = await supabaseClient
+        .from('trial_bookings')
+        .update({ status: newStatus })
+        .eq('id', id);
+      if (error) alert('Status update failed: ' + error.message);
+      else loadBookings();
+    }
+
+    async function deleteBooking(id) {
+      if (!confirm('Are you sure you want to delete this booking record?')) return;
+      const { error } = await supabaseClient.from('trial_bookings').delete().eq('id', id);
+      if (error) alert('Delete failed: ' + error.message);
+      else loadBookings();
+    }
+
+    // Load Messages
+    async function loadMessages() {
+      const tbody = document.getElementById('messages-tbody');
+      if (!supabaseClient) return;
+
+      const { data, error } = await supabaseClient
+        .from('contact_messages')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        tbody.innerHTML = `<tr><td colspan="6" style="color: #fca5a5; text-align: center;">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      const unreadCount = (data || []).filter(m => !m.is_read).length;
+      document.getElementById('stat-messages').innerText = unreadCount;
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">No contact messages received yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = data.map(m => {
+        const dateStr = new Date(m.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        return `
+          <tr style="${!m.is_read ? 'background: rgba(201, 162, 39, 0.05);' : ''}">
+            <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
+            <td><strong>${m.name}</strong></td>
+            <td><a href="mailto:${m.email}" style="color: var(--gold-light); text-decoration: underline;">${m.email}</a></td>
+            <td style="max-width: 320px; font-size: 0.88rem;">${m.message}</td>
+            <td>
+              ${m.is_read 
+                ? '<span style="color: var(--text-muted); font-size: 0.8rem;">Read</span>' 
+                : '<span style="color: var(--gold-light); font-weight: 700; font-size: 0.8rem;">● New</span>'}
+            </td>
+            <td>
+              <button onclick="toggleMessageRead('${m.id}', ${!m.is_read})" class="action-btn" style="margin-right: 0.25rem;">
+                ${m.is_read ? 'Mark Unread' : 'Mark Read'}
+              </button>
+              <button onclick="deleteMessage('${m.id}')" class="action-btn action-btn-danger">✕</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function toggleMessageRead(id, newRead) {
+      const { error } = await supabaseClient.from('contact_messages').update({ is_read: newRead }).eq('id', id);
+      if (error) alert('Update failed: ' + error.message);
+      else loadMessages();
+    }
+
+    async function deleteMessage(id) {
+      if (!confirm('Delete this message?')) return;
+      const { error } = await supabaseClient.from('contact_messages').delete().eq('id', id);
+      if (error) alert('Delete failed: ' + error.message);
+      else loadMessages();
+    }
+
+    // Load Programs
+    async function loadPrograms() {
+      const tbody = document.getElementById('programs-tbody');
+      if (!supabaseClient) return;
+
+      const { data, error } = await supabaseClient
+        .from('programs')
+        .select('*')
+        .order('display_order', { ascending: true });
+
+      if (error || !data) return;
+      document.getElementById('stat-programs').innerText = data.filter(p => p.is_active).length;
+
+      tbody.innerHTML = data.map((p, idx) => `
+        <tr>
+          <td>${idx + 1}</td>
+          <td><strong>${p.title}</strong></td>
+          <td style="color: var(--gold-light); font-weight: 600;">${p.monthly_fee}</td>
+          <td>${p.duration || '30 mins'}</td>
+          <td>
+            <button onclick="toggleProgramActive('${p.id}', ${!p.is_active})" class="action-btn" style="${p.is_active ? 'border-color: #22c55e; color: #86efac;' : 'color: var(--text-muted);'}">
+              ${p.is_active ? 'Active' : 'Disabled'}
+            </button>
+          </td>
+          <td>
+            <button onclick="deleteProgram('${p.id}')" class="action-btn action-btn-danger">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function toggleProgramActive(id, newActive) {
+      await supabaseClient.from('programs').update({ is_active: newActive }).eq('id', id);
+      loadPrograms();
+    }
+
+    async function deleteProgram(id) {
+      if (!confirm('Delete this program?')) return;
+      await supabaseClient.from('programs').delete().eq('id', id);
+      loadPrograms();
+    }
+
+    // Load Teachers
+    async function loadTeachers() {
+      const tbody = document.getElementById('teachers-tbody');
+      if (!supabaseClient) return;
+
+      const { data, error } = await supabaseClient
+        .from('teachers')
+        .select('*')
+        .order('display_order', { ascending: true });
+
+      if (error || !data) return;
+      document.getElementById('stat-teachers').innerText = data.filter(t => t.is_active).length;
+
+      tbody.innerHTML = data.map(t => `
+        <tr>
+          <td><img src="${t.photo_url || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=80&h=80&fit=crop'}" width="36" height="36" style="border-radius:50%; object-fit:cover;"></td>
+          <td><strong>${t.name}</strong></td>
+          <td>${t.qualification}</td>
+          <td>${t.experience}</td>
+          <td>
+            <button onclick="toggleTeacherActive('${t.id}', ${!t.is_active})" class="action-btn" style="${t.is_active ? 'border-color: #22c55e; color: #86efac;' : 'color: var(--text-muted);'}">
+              ${t.is_active ? 'Active' : 'Disabled'}
+            </button>
+          </td>
+          <td>
+            <button onclick="deleteTeacher('${t.id}')" class="action-btn action-btn-danger">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function toggleTeacherActive(id, newActive) {
+      await supabaseClient.from('teachers').update({ is_active: newActive }).eq('id', id);
+      loadTeachers();
+    }
+
+    async function deleteTeacher(id) {
+      if (!confirm('Delete this teacher?')) return;
+      await supabaseClient.from('teachers').delete().eq('id', id);
+      loadTeachers();
+    }
+
+    async function loadAnnouncementForm() {
+      const ann = await getActiveAnnouncement();
+      if (ann) {
+        document.getElementById('ann-text').value = ann.message || '';
+        document.getElementById('ann-link').value = ann.link_url || '';
+        document.getElementById('ann-active').checked = ann.is_active !== false;
+      }
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      const targetTab = document.getElementById('tab-' + tabName);
+      if (targetTab) targetTab.style.display = 'block';
+
+      event.target.classList.add('active');
+    }
+
+    function openAddProgramModal() { document.getElementById('program-modal').style.display = 'flex'; }
+    function openAddTeacherModal() { document.getElementById('teacher-modal').style.display = 'flex'; }
+    function closeModals() {
+      document.getElementById('program-modal').style.display = 'none';
+      document.getElementById('teacher-modal').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
