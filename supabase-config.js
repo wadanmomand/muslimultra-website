@@ -157,8 +157,7 @@ async function submitTrialBooking(bookingData) {
         notes: bookingData.notes || '',
         status: 'new'
       }
-    ])
-    .select();
+    ]);
   if (error) throw error;
   return data;
 }
@@ -174,8 +173,7 @@ async function submitContactMessage(msgData) {
         message: msgData.message,
         is_read: false
       }
-    ])
-    .select();
+    ]);
   if (error) throw error;
   return data;
 }
