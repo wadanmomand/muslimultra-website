@@ -3,133 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support Center | Muslim Ultra</title>
-  <meta name="description" content="Muslim Ultra Support & Help Center - FAQs, prayer times troubleshooting, Qibla calibration, and direct contact.">
+  <title>Support & Help Center — Muslim Ultra</title>
+  <meta name="description" content="Muslim Ultra Support & Help Center - FAQs, prayer times troubleshooting, Qibla calibration, and direct assistance.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
 </head>
 <body>
-  <!-- Header / Navigation -->
-  <header>
-    <div class="container">
-      <nav class="navbar">
-        <a href="index.html" class="logo">
-          <div class="logo-icon">🌙</div>
-          <div class="logo-text">Muslim <span>Ultra</span></div>
-        </a>
-        <div class="nav-links">
-          <a href="index.html#features">Features</a>
-          <a href="privacy-policy.html">Privacy</a>
-          <a href="support.html" class="active">Support</a>
-          <a href="index.html#download" class="nav-cta">Download App</a>
-        </div>
-      </nav>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+        <span class="brand-name">Muslim Ultra</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="support.html" class="active">Support</a></li>
+        <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank" class="btn-secondary">GitHub</a></li>
+      </ul>
     </div>
   </header>
 
-  <!-- Page Content -->
-  <main class="page-container">
-    <div class="container">
-      <div class="doc-header">
-        <div class="badge">Support & Help Center</div>
-        <h1 class="hero-title" style="font-size: 2.75rem; margin-top: 1rem;">How Can We Help You?</h1>
-        <p class="hero-sub" style="margin: 1rem auto 0; max-width: 680px;">
-          Find quick solutions, calibration guides, and direct assistance for Muslim Ultra.
-        </p>
+  <!-- Main Content -->
+  <div class="container">
+    <main class="page-content">
+      <div class="page-header">
+        <div class="badge-pill">💬 Help Center</div>
+        <h1>Support & Assistance</h1>
+        <p class="subtitle">Quick guides, troubleshooting steps, and direct engineering support.</p>
       </div>
 
-      <!-- Quick Contact Card -->
-      <div style="background: linear-gradient(135deg, rgba(201, 162, 39, 0.12), rgba(10, 22, 40, 0.8)); border: 1px solid var(--border-gold); border-radius: 16px; padding: 2rem; margin: 2.5rem 0; text-align: center;">
-        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📩</div>
-        <h2 style="color: var(--gold-light); font-size: 1.6rem; margin-bottom: 0.5rem;">Need Personal Assistance?</h2>
-        <p style="color: var(--text-muted); max-width: 540px; margin: 0 auto 1.25rem;">
-          Our support engineers respond to all user inquiries, bug reports, and calculation feedback within 24–48 hours.
-        </p>
-        <a href="mailto:supportmuslimultra@gmail.com" class="btn btn-primary" style="font-size: 1.05rem;">
-          Email Us: supportmuslimultra@gmail.com
-        </a>
+      <!-- Quick Contact Box -->
+      <div class="privacy-banner" style="margin: 0 0 3rem; padding: 2rem;">
+        <div class="privacy-banner-content">
+          <h3 style="font-size: 1.4rem;">Direct Support Contact</h3>
+          <p>Have an issue, bug report, or calculation feedback? Our team responds within 24–48 hours.</p>
+        </div>
+        <div>
+          <a href="mailto:supportmuslimultra@gmail.com" class="btn-cta">Email Support Team ✉</a>
+        </div>
       </div>
 
-      <div class="doc-body" id="faq">
+      <div class="policy-card">
         <h2>Frequently Asked Questions</h2>
 
-        <div class="faq-card">
-          <h3>Why are prayer notification alerts delayed or missing on Android?</h3>
-          <p>Modern Android operating systems enforce aggressive battery saver modes that may silence background alarm timers. To guarantee exact Adhan alerts on time:</p>
-          <ul>
-            <li>Open your phone's <strong>Settings &rarr; Apps &rarr; Muslim Ultra</strong>.</li>
-            <li>Select <strong>Battery</strong> and choose <strong>"Unrestricted"</strong> (or disable Battery Optimization).</li>
-            <li>Ensure <strong>"Allow Alarms & Reminders"</strong> permission is enabled.</li>
-          </ul>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Why are prayer notification alerts delayed or missing on Android?</span>
+          </div>
+          <div class="accordion-body">
+            <p>Modern Android versions enforce aggressive battery optimization that can silence background alarm timers. To guarantee exact Adhan alerts:</p>
+            <ul>
+              <li>Open <strong>Settings &rarr; Apps &rarr; Muslim Ultra</strong> on your phone.</li>
+              <li>Tap <strong>Battery</strong> and select <strong>"Unrestricted"</strong>.</li>
+              <li>Ensure <strong>"Allow Alarms & Reminders"</strong> permission is enabled.</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="faq-card">
-          <h3>How do I calibrate the Qibla Compass?</h3>
-          <p>The Qibla compass relies on your smartphone's built-in magnetometer. If the dial appears inaccurate or wanders:</p>
-          <ul>
-            <li>Step away from large magnetic sources (laptops, metal desks, magnetic phone cases).</li>
-            <li>Hold your phone flat and gently wave it in a <strong>figure-8 motion</strong> for 5–10 seconds.</li>
-            <li>Ensure location accuracy / high precision GPS mode is turned on.</li>
-          </ul>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>How do I calibrate the Qibla Compass?</span>
+          </div>
+          <div class="accordion-body">
+            <p>The compass uses your smartphone's built-in magnetometer. If the bearing drifts:</p>
+            <ul>
+              <li>Step away from large magnetic sources (laptops, metal frames, magnetic phone cases).</li>
+              <li>Hold your phone flat and wave it in a smooth <strong>figure-8 motion</strong> for 5–10 seconds.</li>
+              <li>Ensure location precision GPS mode is turned on.</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="faq-card">
-          <h3>How do I change calculation methods (MWL, ISNA, Umm al-Qura, Karachi)?</h3>
-          <p>Navigate to <strong>Settings &rarr; Prayer Calculation Method</strong> inside the app. You can switch between all standard international conventions (Muslim World League, Islamic Society of North America, Egyptian General Authority, Umm Al-Qura University, University of Islamic Sciences Karachi, and more) as well as adjust Asr Juristic Method (Standard Shafi/Maliki/Hanbali or Hanafi).</p>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>How do I change calculation conventions (MWL, ISNA, Umm al-Qura)?</span>
+          </div>
+          <div class="accordion-body">
+            <p>Open <strong>Settings &rarr; Prayer Calculation Method</strong> inside Muslim Ultra. You can switch between all standard authorities (Muslim World League, ISNA, Makkah Umm al-Qura, Egyptian Authority, and Karachi) and adjust Asr Juristic Method (Standard Shafi/Maliki/Hanbali or Hanafi).</p>
+          </div>
         </div>
 
-        <div class="faq-card">
-          <h3>Can I listen to Quran audio offline without internet?</h3>
-          <p>Yes. When playing any Surah or verse, tap the <strong>Download</strong> icon to save the reciter's audio files locally to your device storage. Once cached, recitations play instantly without requiring data or Wi-Fi.</p>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Can I listen to Quran recitations offline?</span>
+          </div>
+          <div class="accordion-body">
+            <p>Yes. Tap the download icon next to any Surah to save the high-quality EveryAyah recitations locally on your device for instant offline playback anytime without data.</p>
+          </div>
         </div>
 
-        <div class="faq-card">
-          <h3>Is my personal location data ever shared or tracked?</h3>
-          <p>Never. Muslim Ultra calculates all solar prayer angles and Qibla bearings strictly on your physical device. We maintain no location tracking databases and run zero behavioral analytics.</p>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Is my location or prayer history ever sent to the cloud?</span>
+          </div>
+          <div class="accordion-body">
+            <p>Never. Muslim Ultra calculates all solar prayer angles and Qibla bearings strictly on your physical device. We maintain zero tracking databases and zero telemetry collectors.</p>
+          </div>
         </div>
+
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <!-- Footer -->
   <footer>
-    <div class="container footer-content">
-      <div class="footer-col">
-        <div class="logo">
-          <div class="logo-icon">🌙</div>
-          <div class="logo-text">Muslim <span>Ultra</span></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+            <span class="brand-name">Muslim Ultra</span>
+          </div>
+          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and authentic Islamic knowledge.</p>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 1rem; max-width: 320px;">
-          The all-in-one, privacy-first Islamic companion for modern Muslims.
-        </p>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="support.html">Support & Help</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>
+            <li><a href="https://github.com/wadanmomand/muslimultra" target="_blank">GitHub Repository</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="index.html#features">Features</a></li>
-          <li><a href="index.html#quran">Quran & Audio</a></li>
-          <li><a href="index.html#companion">Deen Companion</a></li>
-          <li><a href="index.html#download">Download</a></li>
-        </ul>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Muslim Ultra. All rights reserved.</div>
+        <div>Crafted with Midnight Navy & Celestial Gold tokens.</div>
       </div>
-      <div class="footer-col">
-        <h4>Trust & Legal</h4>
-        <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="support.html">Support Center</a></li>
-          <li><a href="support.html#faq">FAQ & Troubleshooting</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Direct Contact</h4>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Have questions or feedback?</p>
-        <a href="mailto:supportmuslimultra@gmail.com" class="link-gold" style="font-weight: 600; font-size: 0.95rem;">supportmuslimultra@gmail.com</a>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      <div>&copy; 2026 Muslim Ultra. All rights reserved. Built with precision and barakah.</div>
-      <div>Zero Trackers • 100% Privacy Focused</div>
     </div>
   </footer>
+
 </body>
 </html>
