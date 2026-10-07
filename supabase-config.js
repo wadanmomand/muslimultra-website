@@ -11,7 +11,7 @@ if (window.supabase) {
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
-// Fallback Mock Data for Graceful Offline / Unseeded State
+// Fallback Mock Data for Graceful Offline / Initial State
 const FALLBACK_PROGRAMS = [
   {
     id: 'f1',
@@ -20,6 +20,7 @@ const FALLBACK_PROGRAMS = [
     description: 'Ideal for beginners and children. Learn Arabic alphabet phonetics, correct articulation (Makharij), and smooth Quranic reading from scratch.',
     monthly_fee: '$35 / month',
     duration: '30 mins / 3 days a week',
+    schedule_flexibility: 'Flexible 1-on-1 Timing',
     display_order: 1
   },
   {
@@ -29,6 +30,7 @@ const FALLBACK_PROGRAMS = [
     description: 'Structured memorization program guided by certified Huffaz with daily revision (Sabaq, Sabaqi, Manzil) and personalized progress tracking.',
     monthly_fee: '$65 / month',
     duration: '45 mins / 5 days a week',
+    schedule_flexibility: 'Flexible 1-on-1 Timing',
     display_order: 2
   },
   {
@@ -38,6 +40,7 @@ const FALLBACK_PROGRAMS = [
     description: 'Master the rules of Noon Sakinah, Meem Sakinah, Madd, Ghunnah, and Waqf to recite the Holy Quran with authentic melody and precision.',
     monthly_fee: '$45 / month',
     duration: '30 mins / 4 days a week',
+    schedule_flexibility: 'Flexible 1-on-1 Timing',
     display_order: 3
   },
   {
@@ -47,6 +50,7 @@ const FALLBACK_PROGRAMS = [
     description: 'Word-by-word Arabic grammatical breakdown, thematic study of Surahs, and scholarly classical Tafseer explanations.',
     monthly_fee: '$50 / month',
     duration: '40 mins / 3 days a week',
+    schedule_flexibility: 'Flexible 1-on-1 Timing',
     display_order: 4
   },
   {
@@ -56,6 +60,7 @@ const FALLBACK_PROGRAMS = [
     description: 'Engaging curriculum covering daily Sunnah duas from Hisn al-Muslim, basic Fiqh of Taharah/Salah, Seerah of the Prophet ﷺ, and Islamic manners.',
     monthly_fee: '$40 / month',
     duration: '30 mins / 3 days a week',
+    schedule_flexibility: 'Flexible 1-on-1 Timing',
     display_order: 5
   }
 ];
@@ -66,7 +71,7 @@ const FALLBACK_TEACHERS = [
     name: 'Qari Muhammad Abdullah',
     qualification: 'Ijazah in Hafs \'an \'Asim, Al-Azhar Certified',
     experience: '8+ Years Online Teaching',
-    photo_url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=200&fit=crop&crop=faces',
+    photo_url: 'images/teachers/teacher-abdullah.png',
     bio: 'Specializes in Tajweed rectification, beginner Qaida phonetics, and youth engagement.'
   },
   {
@@ -74,7 +79,7 @@ const FALLBACK_TEACHERS = [
     name: 'Ustadh Hafiz Bilal Ahmed',
     qualification: 'Hafiz-ul-Quran & Wifaq-ul-Madaris Graduate',
     experience: '10+ Years Hifz Mentorship',
-    photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces',
+    photo_url: 'images/teachers/teacher-bilal.png',
     bio: 'Dedicated Hifz mentor with over 40+ students who completed full Quran memorization under his guidance.'
   },
   {
@@ -82,7 +87,7 @@ const FALLBACK_TEACHERS = [
     name: 'Ustadha Fatima Zahra',
     qualification: 'MA Islamic Studies & Qirat Specialization',
     experience: '6+ Years Teaching Female & Children',
-    photo_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces',
+    photo_url: 'images/teachers/teacher-fatima.png',
     bio: 'Expert in interactive kids learning, Tajweed for sisters, and daily Sunnah supplications.'
   }
 ];
