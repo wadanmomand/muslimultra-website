@@ -1007,7 +1007,6 @@ footer {
     align-items: flex-start;
     padding: 5.5rem 1.75rem 2rem;
     gap: 1.25rem;
-    z-index: 99;
     box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
     transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-y: auto;
@@ -1015,6 +1014,13 @@ footer {
 
   .nav-links.open {
     right: 0;
+  }
+
+  /* Structural fix: drawer lives inside header.navbar's stacking context,
+     so lift the header above the backdrop while the menu is open.
+     Result: drawer links/X/swipe receive touches; backdrop still dims page. */
+  body.menu-open .navbar {
+    z-index: 103;
   }
 
   .nav-links li {
@@ -1047,7 +1053,7 @@ footer {
 
 @media (max-width: 480px) {
   .hero h1 { font-size: 1.95rem; }
-  .btn-cta, .btn-secondary { width: 100%; }
+  .hero-actions .btn-cta, .hero-actions .btn-secondary { width: 100%; }
   .hero-actions { flex-direction: column; }
   .academy-spotlight-box { padding: 2rem 1.25rem; }
 }
@@ -1067,13 +1073,6 @@ footer {
   .container { padding: 0 1.1rem; }
   .page-content { padding: 2.5rem 0 4rem; }
   .features-section, .academy-section { padding: 3rem 0; }
-}
-
-/* 3. Full-width buttons ONLY in hero actions.
-   (The old global rule broke admin/table buttons on small screens.) */
-@media (max-width: 480px) {
-  .hero-actions .btn-cta,
-  .hero-actions .btn-secondary { width: 100%; }
 }
 
 /* 4. Admin tables: compact cells on mobile, keep horizontal scroll smooth */
@@ -1128,7 +1127,7 @@ footer {
   .drawer-close-btn {
     display: flex;
     position: absolute;
-    top: 1.1rem;
+    top: 4.75rem;
     right: 1.1rem;
     width: 42px;
     height: 42px;
