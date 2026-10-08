@@ -218,6 +218,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     backdrop.addEventListener('click', closeMenu);
 
+    // Inject an X close button at the top of the drawer (all pages)
+    if (!navLinks.querySelector('.drawer-close-btn')) {
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'drawer-close-btn';
+      closeBtn.type = 'button';
+      closeBtn.setAttribute('aria-label', 'Close navigation menu');
+      closeBtn.textContent = '\u2715';
+      closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeMenu(); });
+      navLinks.prepend(closeBtn);
+    }
+
+    // Swipe-to-close: a rightward swipe on the right-side drawer dismisses it.
+    // (Without this, edge swipes trigger the browser back/forward navigation.)
+    let touchSX = 0, touchSY = 0;
+    navLinks.addEventListener('touchstart', (e) => {
+      touchSX = e.touches[0].clientX;
+      touchSY = e.touches[0].clientY;
+    }, { passive: true });
+    navLinks.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchSX;
+      const dy = e.changedTouches[0].clientY - touchSY;
+      if (dx > 70 && Math.abs(dx) > Math.abs(dy) * 1.4 && navLinks.classList.contains('open')) {
+        closeMenu();
+      }
+    }, { passive: true });
+
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         closeMenu();
