@@ -307,7 +307,7 @@
   <div id="program-modal" class="modal-overlay">
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.35rem; color: #FFFFFF;">Add New Academy Program</h3>
+        <h3 id="program-modal-title" style="font-size: 1.35rem; color: #FFFFFF;">Add New Academy Program</h3>
         <button onclick="closeModals()" class="action-btn" style="padding: 0.2rem 0.6rem;">✕</button>
       </div>
       <form id="add-program-form">
@@ -329,7 +329,7 @@
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
           <button type="button" onclick="closeModals()" class="btn-secondary">Cancel</button>
-          <button type="submit" class="btn-cta">Save Program</button>
+          <button type="submit" id="program-submit-btn" class="btn-cta">Save Program</button>
         </div>
       </form>
     </div>
@@ -339,7 +339,7 @@
   <div id="teacher-modal" class="modal-overlay">
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.35rem; color: #FFFFFF;">Add New Instructor</h3>
+        <h3 id="teacher-modal-title" style="font-size: 1.35rem; color: #FFFFFF;">Add New Instructor</h3>
         <button onclick="closeModals()" class="action-btn" style="padding: 0.2rem 0.6rem;">✕</button>
       </div>
       <form id="add-teacher-form">
@@ -365,7 +365,7 @@
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
           <button type="button" onclick="closeModals()" class="btn-secondary">Cancel</button>
-          <button type="submit" class="btn-cta">Save Instructor</button>
+          <button type="submit" id="teacher-submit-btn" class="btn-cta">Save Instructor</button>
         </div>
       </form>
     </div>
@@ -547,14 +547,19 @@
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
         try {
-          const { error } = await supabaseClient.from('programs').insert([{
+          const payload = {
             title,
             slug,
             monthly_fee,
             description,
-            duration: duration || '30 mins / 3 days a week',
-            is_active: true
-          }]);
+            duration: duration || '30 mins / 3 days a week'
+          };
+          let error;
+          if (editingProgramId) {
+            ({ error } = await supabaseClient.from('programs').update(payload).eq('id', editingProgramId));
+          } else {
+            ({ error } = await supabaseClient.from('programs').insert([{ ...payload, is_active: true }]));
+          }
           if (error) throw error;
           closeModals();
           loadPrograms();
@@ -573,14 +578,19 @@
         const bio = document.getElementById('t-bio').value.trim();
 
         try {
-          const { error } = await supabaseClient.from('teachers').insert([{
+          const payload = {
             name,
             qualification,
             experience: experience || 'Certified Tutor',
             photo_url: photo_url || 'images/teachers/teacher-abdullah.png',
-            bio,
-            is_active: true
-          }]);
+            bio
+          };
+          let error;
+          if (editingTeacherId) {
+            ({ error } = await supabaseClient.from('teachers').update(payload).eq('id', editingTeacherId));
+          } else {
+            ({ error } = await supabaseClient.from('teachers').insert([{ ...payload, is_active: true }]));
+          }
           if (error) throw error;
           closeModals();
           loadTeachers();
@@ -779,7 +789,8 @@
               ${p.is_active ? 'Active' : 'Disabled'}
             </button>
           </td>
-          <td>
+          <td style="white-space: nowrap;">
+            <button onclick="openEditProgramModal('${p.id}')" class="action-btn" style="border-color: var(--gold-primary); color: var(--gold-light); margin-right: 0.4rem;">Edit</button>
             <button onclick="deleteProgram('${p.id}')" class="action-btn action-btn-danger">Delete</button>
           </td>
         </tr>
@@ -821,7 +832,8 @@
               ${t.is_active ? 'Active' : 'Disabled'}
             </button>
           </td>
-          <td>
+          <td style="white-space: nowrap;">
+            <button onclick="openEditTeacherModal('${t.id}')" class="action-btn" style="border-color: var(--gold-primary); color: var(--gold-light); margin-right: 0.4rem;">Edit</button>
             <button onclick="deleteTeacher('${t.id}')" class="action-btn action-btn-danger">Delete</button>
           </td>
         </tr>
@@ -858,12 +870,53 @@
       event.target.classList.add('active');
     }
 
-    function openAddProgramModal() { document.getElementById('program-modal').style.display = 'flex'; }
-    function openAddTeacherModal() { document.getElementById('teacher-modal').style.display = 'flex'; }
+    let editingProgramId = null;
+    function openAddProgramModal() {
+      editingProgramId = null;
+      document.getElementById('program-modal-title').innerText = 'Add New Academy Program';
+      document.getElementById('program-submit-btn').innerText = 'Save Program';
+      document.getElementById('add-program-form').reset();
+      document.getElementById('program-modal').style.display = 'flex';
+    }
+    async function openEditProgramModal(id) {
+      const { data, error } = await supabaseClient.from('programs').select('*').eq('id', id).single();
+      if (error || !data) { alert('Could not load program details.'); return; }
+      editingProgramId = id;
+      document.getElementById('p-title').value = data.title || '';
+      document.getElementById('p-fee').value = data.monthly_fee || '';
+      document.getElementById('p-duration').value = data.duration || '';
+      document.getElementById('p-desc').value = data.description || '';
+      document.getElementById('program-modal-title').innerText = 'Edit Academy Program';
+      document.getElementById('program-submit-btn').innerText = 'Update Program';
+      document.getElementById('program-modal').style.display = 'flex';
+    }
+    let editingTeacherId = null;
+    function openAddTeacherModal() {
+      editingTeacherId = null;
+      document.getElementById('teacher-modal-title').innerText = 'Add New Instructor';
+      document.getElementById('teacher-submit-btn').innerText = 'Save Instructor';
+      document.getElementById('add-teacher-form').reset();
+      document.getElementById('teacher-modal').style.display = 'flex';
+    }
+    async function openEditTeacherModal(id) {
+      const { data, error } = await supabaseClient.from('teachers').select('*').eq('id', id).single();
+      if (error || !data) { alert('Could not load instructor details.'); return; }
+      editingTeacherId = id;
+      document.getElementById('t-name').value = data.name || '';
+      document.getElementById('t-qual').value = data.qualification || '';
+      document.getElementById('t-exp').value = data.experience || '';
+      document.getElementById('t-photo').value = data.photo_url || '';
+      document.getElementById('t-bio').value = data.bio || '';
+      document.getElementById('teacher-modal-title').innerText = 'Edit Instructor';
+      document.getElementById('teacher-submit-btn').innerText = 'Update Instructor';
+      document.getElementById('teacher-modal').style.display = 'flex';
+    }
     function closeModals() {
       document.getElementById('program-modal').style.display = 'none';
       document.getElementById('teacher-modal').style.display = 'none';
       document.getElementById('password-modal').style.display = 'none';
+      editingProgramId = null;
+      editingTeacherId = null;
     }
   </script>
 
