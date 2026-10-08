@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — Muslim Ultra</title>
+  <meta name="description" content="Muslim Ultra Terms of Service — the rules for using the Muslim Ultra app and enrolling in the Muslim Ultra Quran Academy.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+        <span class="brand-name">Muslim Ultra</span>
+      </a>
+      <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="academy.html">Academy</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="academy.html#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <main class="page-content">
+      <div class="page-header">
+        <div class="badge-pill">📜 Fair & Transparent</div>
+        <h1>Terms of Service</h1>
+        <p class="subtitle">Effective Date: October 8, 2026 • Muslim Ultra (<code>com.muslimultra.app</code>)</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>1. Agreement to These Terms</h2>
+        <p>By downloading, installing, or using the <strong>Muslim Ultra</strong> mobile application, visiting this website, or enrolling in the <strong>Muslim Ultra Quran Academy</strong>, you agree to these Terms of Service and our <a href="privacy-policy.html" style="color: var(--gold-light);">Privacy Policy</a>. If you do not agree, please do not use our services.</p>
+        <p>We may update these terms from time to time. Continued use of the app or academy services after changes take effect constitutes acceptance of the revised terms.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>2. The Muslim Ultra App</h2>
+        <p>Muslim Ultra provides prayer times, Qibla direction, a Quran reader with translations, daily duas, and the Muslim AI assistant. The app is provided <strong>free of charge</strong> and contains <strong>no advertisements</strong>.</p>
+        <ul>
+          <li><strong>License:</strong> We grant you a personal, non-transferable, revocable license to use the app for your own spiritual and educational purposes.</li>
+          <li><strong>Acceptable use:</strong> Do not misuse the app, attempt to disrupt its services, scrape its content at scale, or use it for any unlawful purpose.</li>
+          <li><strong>Accuracy:</strong> Prayer times are calculated on-device using standard astronomical methods and your selected calculation settings. While we strive for precision, you remain responsible for confirming times with your local masjid if needed.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h2>3. Muslim AI — Important Religious Disclaimer</h2>
+        <p>Muslim AI answers are <strong>informational and educational only</strong>. They are generated with the help of artificial intelligence grounded in a curated corpus of Quranic verses, hadith, and duas — but they are <strong>not a fatwa</strong> and do not replace the guidance of a qualified scholar.</p>
+        <ul>
+          <li>Always verify important religious rulings with a trusted, qualified scholar.</li>
+          <li>Do not submit personal, confidential, or sensitive private information in the chat.</li>
+          <li>Fair use applies: up to 20 questions per user per day.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h2>4. Quran Academy — Trial & Enrollment</h2>
+        <ul>
+          <li><strong>3-Day Free Trial:</strong> New students may book a free 3-day trial. Our academic coordinator will contact you via WhatsApp or email to schedule your classes.</li>
+          <li><strong>Enrollment:</strong> After the trial, continued classes require enrollment in a program at the fee communicated to you by our coordinator before classes begin.</li>
+          <li><strong>Scheduling:</strong> Class timings are agreed mutually between the student (or parent) and the assigned teacher. Please join on time; repeated no-shows without notice may lead to rescheduling or discontinuation.</li>
+          <li><strong>Conduct:</strong> Students and parents are expected to maintain respectful Islamic conduct in all interactions with teachers and staff. Any abusive behavior may result in immediate termination of enrollment.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h2>5. Fees, Payments & Refunds</h2>
+        <ul>
+          <li>Academy tuition fees are communicated clearly at the time of enrollment. There are no hidden charges.</li>
+          <li>If you are dissatisfied, you may request a refund for <strong>unused, prepaid classes</strong> within 7 days of payment by writing to <a href="mailto:supportmuslimultra@gmail.com" style="color: var(--gold-light);">supportmuslimultra@gmail.com</a>. Refund requests are reviewed case by case.</li>
+          <li>Classes already delivered are non-refundable.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h2>6. Intellectual Property</h2>
+        <p>The Muslim Ultra name, logo, app icon, website design, and original content are our intellectual property. Quranic text and translations are presented from public and licensed sources for worship and study; you may not redistribute our curated content commercially without permission.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>7. Third-Party Services</h2>
+        <p>Our services rely on select third-party infrastructure (e.g., Supabase for secure data services, Google Gemini API for AI processing, and public Quran audio CDNs). Your use of these underlying services is subject to their respective terms, referenced in our <a href="privacy-policy.html" style="color: var(--gold-light);">Privacy Policy</a>.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>8. Limitation of Liability</h2>
+        <p>Our services are provided "as is". To the maximum extent permitted by law, we are not liable for indirect or consequential damages arising from the use of the app or academy services — including reliance on prayer-time calculations or AI-generated answers without scholarly verification.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>9. Changes to These Terms</h2>
+        <p>We may revise these terms as our services evolve. Material changes will be reflected by updating the effective date above. Your continued use of the services after such changes means you accept the updated terms.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>10. Contact Us</h2>
+        <p>Questions about these terms? Reach us at <a href="mailto:supportmuslimultra@gmail.com" style="color: var(--gold-light);">supportmuslimultra@gmail.com</a> or via the <a href="support.html" style="color: var(--gold-light);">Support page</a>.</p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+            <span class="brand-name">Muslim Ultra</span>
+          </div>
+          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and authentic Islamic knowledge.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Academy</h4>
+          <ul>
+            <li><a href="academy.html#programs">Programs & Tuition</a></li>
+            <li><a href="academy.html#teachers">Certified Instructors</a></li>
+            <li><a href="academy.html#trial-booking">Book Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>App & Legal</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="support.html">Support & Help</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Muslim Ultra. All rights reserved.</div>
+        <div><a href="admin.html" class="footer-admin-link">Staff Admin Portal &rarr;</a></div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

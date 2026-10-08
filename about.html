@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Muslim Ultra</title>
+  <meta name="description" content="About Muslim Ultra — a privacy-first Islamic companion app and online Quran academy, built for authentic worship and learning.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+        <span class="brand-name">Muslim Ultra</span>
+      </a>
+      <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="academy.html">Academy</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="academy.html#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <main class="page-content">
+      <div class="page-header">
+        <div class="badge-pill">✦ Our Story</div>
+        <h1>About Muslim Ultra</h1>
+        <p class="subtitle">A privacy-first Islamic companion — for your prayers, your Quran, and your learning.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>Our Mission</h2>
+        <p>Muslim Ultra exists for one reason: to help Muslims worship and learn with <strong>confidence, authenticity, and complete privacy</strong>. Too many Islamic apps today monetize your data — tracking your location, your prayers, and your questions. We built Muslim Ultra as the opposite: a companion that serves you without surveilling you.</p>
+        <p>Every design decision — from on-device prayer calculations to a tracker-free codebase — flows from a simple belief: <strong>your ibadah is sacred, and your data belongs to you alone.</strong></p>
+      </div>
+
+      <div class="policy-card">
+        <h2>What We Build</h2>
+        <ul>
+          <li><strong>The Muslim Ultra app</strong> — accurate prayer times, a tilt-compensated Qibla compass, a Tanzil-based Quran reader with translations, daily duas, and <strong>Muslim AI</strong>, an assistant that answers Islamic questions with authentic citations from Quran and hadith.</li>
+          <li><strong>The Muslim Ultra Quran Academy</strong> — live 1-on-1 online classes for kids and adults: Noorani Qaida, Tajweed, Hifz, and Islamic studies with qualified teachers. Every new student begins with a <strong>3-day free trial</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h2>Privacy Is Not a Feature. It's the Foundation.</h2>
+        <p>Muslim Ultra ships with <strong>zero third-party trackers, zero advertising SDKs, and zero analytics collectors</strong>. Prayer times and Qibla direction are computed <strong>entirely on your device</strong> — your location never leaves your phone. Read the full details in our <a href="privacy-policy.html" style="color: var(--gold-light);">Privacy Policy</a>.</p>
+      </div>
+
+      <div class="policy-card">
+        <h2>Authenticity Above All</h2>
+        <p>Religious content carries a trust that we take seriously:</p>
+        <ul>
+          <li>Quranic text is sourced from the Tanzil project with verified translations.</li>
+          <li>Muslim AI is grounded in a curated corpus of Quran, hadith, and authentic duas — and it <strong>declines to answer rather than fabricate</strong> a reference.</li>
+          <li>AI answers are educational, not fatwas — we always encourage verifying rulings with qualified scholars (see our <a href="terms.html" style="color: var(--gold-light);">Terms of Service</a>).</li>
+          <li>Academy teachers are qualified instructors, matched to each student's age and level.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h2>Our Values</h2>
+        <ul>
+          <li><strong>🕌 Authenticity</strong> — verified sources, honest citations, no fabrication.</li>
+          <li><strong>🔒 Privacy</strong> — no trackers, no ads, no data selling. Ever.</li>
+          <li><strong>🤝 Trust</strong> — transparent policies, clear pricing, respectful conduct.</li>
+          <li><strong>📖 Knowledge</strong> — making Quranic learning accessible to every home.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card" style="text-align: center;">
+        <h2>Get in Touch</h2>
+        <p>Questions about the app, the academy, or anything else? We'd love to hear from you.</p>
+        <p>
+          <a href="mailto:supportmuslimultra@gmail.com" class="btn-secondary" style="margin: 0.5rem;">✉️ supportmuslimultra@gmail.com</a>
+          <a href="academy.html#trial-booking" class="btn-cta" style="margin: 0.5rem;">Book a Free Trial ✦</a>
+        </p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Floating WhatsApp CTA -->
+  <a href="https://wa.me/923170637447?text=Assalam-o-Alaikum%2C%20I%20want%20to%20inquire%20about%20Muslim%20Ultra." target="_blank" class="whatsapp-float">
+    <span>💬</span> WhatsApp Inquiry
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
+            <span class="brand-name">Muslim Ultra</span>
+          </div>
+          <p>The ultimate privacy-first Islamic companion for prayers, Quranic study, Qibla direction, and authentic Islamic knowledge.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Academy</h4>
+          <ul>
+            <li><a href="academy.html#programs">Programs & Tuition</a></li>
+            <li><a href="academy.html#teachers">Certified Instructors</a></li>
+            <li><a href="academy.html#trial-booking">Book Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>App & Legal</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="support.html">Support & Help</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Muslim Ultra. All rights reserved.</div>
+        <div><a href="admin.html" class="footer-admin-link">Staff Admin Portal &rarr;</a></div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
