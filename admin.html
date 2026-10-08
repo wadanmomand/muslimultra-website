@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -46,7 +46,8 @@
       <p style="color: var(--text-secondary); font-size: 0.95rem;">Sign in with your Supabase Admin Credentials</p>
     </div>
 
-    <div class="form-card">
+    <!-- Sign In Form Box -->
+    <div id="login-box" class="form-card">
       <div id="login-alert" style="display: none;"></div>
 
       <form id="login-form">
@@ -56,13 +57,41 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="login-password">Password</label>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" for="login-password" style="margin-bottom: 0;">Password</label>
+            <a href="javascript:void(0)" onclick="toggleAuthView('forgot')" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: underline;">Forgot password?</a>
+          </div>
           <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" required>
         </div>
 
         <button type="submit" id="login-btn" class="btn-cta" style="width: 100%; padding: 0.9rem; margin-top: 0.5rem;">
           Sign In to Dashboard &rarr;
         </button>
+      </form>
+    </div>
+
+    <!-- Forgot Password Box -->
+    <div id="forgot-box" class="form-card" style="display: none;">
+      <div id="forgot-alert" style="display: none;"></div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <h2 style="font-size: 1.3rem; color: #FFFFFF; margin-bottom: 0.35rem;">Recover Password</h2>
+        <p style="color: var(--text-secondary); font-size: 0.88rem;">Enter your admin email to receive a secure password reset link.</p>
+      </div>
+
+      <form id="forgot-form">
+        <div class="form-group">
+          <label class="form-label" for="forgot-email">Admin Email</label>
+          <input type="email" id="forgot-email" class="form-control" placeholder="admin@muslimultra.app" required>
+        </div>
+
+        <button type="submit" id="forgot-btn" class="btn-cta" style="width: 100%; padding: 0.9rem; margin-top: 0.5rem;">
+          Send Reset Link &rarr;
+        </button>
+
+        <div style="text-align: center; margin-top: 1.25rem;">
+          <a href="javascript:void(0)" onclick="toggleAuthView('login')" style="color: var(--text-muted); font-size: 0.88rem;">&larr; Back to Sign In</a>
+        </div>
       </form>
     </div>
 
@@ -81,8 +110,9 @@
           <img src="icon.png" alt="Muslim Ultra" width="34" height="34" style="border-radius:8px">
           <span class="brand-name">Muslim Ultra <span style="font-size: 0.85rem; color: var(--gold-light);">Management</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
           <span id="user-email-display" style="color: var(--text-secondary); font-size: 0.88rem;"></span>
+          <button onclick="openChangePasswordModal()" class="action-btn" style="padding: 0.45rem 0.85rem; border-color: var(--gold-primary); color: var(--gold-light);">🔑 Change Password</button>
           <a href="index.html" target="_blank" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.82rem;">View Site &nearr;</a>
           <button id="logout-btn" class="action-btn" style="padding: 0.45rem 0.9rem; border-color: #ef4444; color: #fca5a5;">Sign Out</button>
         </div>
@@ -149,14 +179,14 @@
       <!-- TAB 2: CONTACT MESSAGES -->
       <section id="tab-messages" class="tab-content" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Inquiries & Contact Messages</h2>
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Public Inquiries & Messages</h2>
           <button onclick="loadMessages()" class="btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">↻ Refresh</button>
         </div>
         <div class="data-table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Date</th>
+                <th>Received</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Message</th>
@@ -171,19 +201,19 @@
         </div>
       </section>
 
-      <!-- TAB 3: PROGRAMS -->
+      <!-- TAB 3: ACADEMY PROGRAMS -->
       <section id="tab-programs" class="tab-content" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Manage Academy Programs</h2>
-          <button onclick="openAddProgramModal()" class="btn-cta" style="padding: 0.5rem 1rem; font-size: 0.85rem;">+ Add Program</button>
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Active Academy Courses</h2>
+          <button onclick="openAddProgramModal()" class="btn-cta" style="font-size: 0.85rem; padding: 0.45rem 1rem;">+ Add New Program</button>
         </div>
         <div class="data-table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Order</th>
+                <th>#</th>
                 <th>Title</th>
-                <th>Monthly Fee</th>
+                <th>Tuition Fee</th>
                 <th>Duration</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -199,14 +229,14 @@
       <!-- TAB 4: TEACHERS -->
       <section id="tab-teachers" class="tab-content" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Manage Certified Teachers</h2>
-          <button onclick="openAddTeacherModal()" class="btn-cta" style="padding: 0.5rem 1rem; font-size: 0.85rem;">+ Add Teacher</button>
+          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Instructors & Mentors</h2>
+          <button onclick="openAddTeacherModal()" class="btn-cta" style="font-size: 0.85rem; padding: 0.45rem 1rem;">+ Add New Teacher</button>
         </div>
         <div class="data-table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Photo</th>
+                <th>Avatar</th>
                 <th>Name</th>
                 <th>Qualification</th>
                 <th>Experience</th>
@@ -223,51 +253,79 @@
 
       <!-- TAB 5: ANNOUNCEMENTS -->
       <section id="tab-announcements" class="tab-content" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h2 style="font-size: 1.5rem; color: #FFFFFF;">Website Top Announcement Banner</h2>
-        </div>
-        <div class="form-card" style="max-width: 700px; margin-bottom: 2rem;">
-          <form id="announcement-form">
-            <div class="form-group">
-              <label class="form-label" for="ann-text">Banner Announcement Text</label>
-              <input type="text" id="ann-text" class="form-control" placeholder="🌟 Free 3-Day Trial Classes now open for online Quran sessions!" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ann-link">Link Target URL (Optional)</label>
-              <input type="text" id="ann-link" class="form-control" placeholder="academy.html#trial-booking">
-            </div>
-            <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
-              <input type="checkbox" id="ann-active" checked style="width: 18px; height: 18px;">
-              <label for="ann-active" style="color: var(--text-primary); font-size: 0.9rem; cursor: pointer;">Enable active banner on website</label>
-            </div>
-            <button type="submit" class="btn-cta" style="padding: 0.7rem 1.4rem;">Save & Publish Banner</button>
-          </form>
+        <div style="max-width: 600px;">
+          <h2 style="font-size: 1.5rem; color: #FFFFFF; margin-bottom: 1rem;">Top Announcement Notice</h2>
+          <div class="form-card">
+            <form id="announcement-form">
+              <div class="form-group">
+                <label class="form-label">Banner Notice Text</label>
+                <input type="text" id="ann-text" class="form-control" placeholder="Ramadan 2026 Special: 20% discount on 1-on-1 Hifz courses!">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Link URL (Optional)</label>
+                <input type="text" id="ann-link" class="form-control" placeholder="academy.html#trial-booking">
+              </div>
+              <div class="form-group" style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="checkbox" id="ann-active" style="width: 18px; height: 18px;">
+                <label for="ann-active" style="color: var(--text-primary); font-size: 0.95rem; cursor: pointer;">Enable & Show Notice</label>
+              </div>
+              <button type="submit" class="btn-cta" style="margin-top: 0.5rem;">Save Notice</button>
+            </form>
+          </div>
         </div>
       </section>
 
     </main>
   </div>
 
-  <!-- Modal: Add Program -->
+  <!-- MODAL: Change Password -->
+  <div id="password-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.35rem; color: #FFFFFF;">Change Admin Password</h3>
+        <button onclick="closeModals()" class="action-btn" style="padding: 0.2rem 0.6rem;">✕</button>
+      </div>
+      <div id="password-alert" style="display: none;"></div>
+      <form id="change-password-form">
+        <div class="form-group">
+          <label class="form-label">New Password (minimum 6 characters)</label>
+          <input type="password" id="new-password" class="form-control" placeholder="••••••••••••" required minlength="6">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm New Password</label>
+          <input type="password" id="confirm-password" class="form-control" placeholder="••••••••••••" required minlength="6">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" onclick="closeModals()" class="btn-secondary">Cancel</button>
+          <button type="submit" id="save-password-btn" class="btn-cta">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Add Program -->
   <div id="program-modal" class="modal-overlay">
     <div class="modal-card">
-      <h3 style="color: var(--gold-light); margin-bottom: 1rem;">Add Academy Program</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.35rem; color: #FFFFFF;">Add New Academy Program</h3>
+        <button onclick="closeModals()" class="action-btn" style="padding: 0.2rem 0.6rem;">✕</button>
+      </div>
       <form id="add-program-form">
         <div class="form-group">
-          <label class="form-label">Program Title *</label>
-          <input type="text" id="p-title" class="form-control" placeholder="e.g. Advanced Tajweed Masterclass" required>
+          <label class="form-label">Course Title</label>
+          <input type="text" id="p-title" class="form-control" placeholder="Noorani Qaida & Nazra" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Monthly Tuition *</label>
-          <input type="text" id="p-fee" class="form-control" placeholder="e.g. $45 / month" required>
+          <label class="form-label">Monthly Tuition Fee</label>
+          <input type="text" id="p-fee" class="form-control" placeholder="$35 / month" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Description *</label>
-          <textarea id="p-desc" class="form-control" placeholder="Course outline, targeted age group, and learning outcomes" required></textarea>
+          <label class="form-label">Duration & Frequency</label>
+          <input type="text" id="p-duration" class="form-control" placeholder="30 mins / 3 days a week">
         </div>
         <div class="form-group">
-          <label class="form-label">Duration & Schedule</label>
-          <input type="text" id="p-duration" class="form-control" placeholder="e.g. 30 mins / 3 days a week">
+          <label class="form-label">Course Description</label>
+          <textarea id="p-desc" class="form-control" placeholder="Detailed curriculum breakdown..."></textarea>
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
           <button type="button" onclick="closeModals()" class="btn-secondary">Cancel</button>
@@ -277,26 +335,29 @@
     </div>
   </div>
 
-  <!-- Modal: Add Teacher -->
+  <!-- MODAL: Add Teacher -->
   <div id="teacher-modal" class="modal-overlay">
     <div class="modal-card">
-      <h3 style="color: var(--gold-light); margin-bottom: 1rem;">Add Certified Instructor</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.35rem; color: #FFFFFF;">Add New Instructor</h3>
+        <button onclick="closeModals()" class="action-btn" style="padding: 0.2rem 0.6rem;">✕</button>
+      </div>
       <form id="add-teacher-form">
         <div class="form-group">
-          <label class="form-label">Instructor Name *</label>
-          <input type="text" id="t-name" class="form-control" placeholder="e.g. Qari Hamza Siddiqui" required>
+          <label class="form-label">Full Name & Title</label>
+          <input type="text" id="t-name" class="form-control" placeholder="Qari Muhammad Abdullah" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Qualification / Ijazah *</label>
-          <input type="text" id="t-qual" class="form-control" placeholder="e.g. Ijazah in Hafs & Shu'bah" required>
+          <label class="form-label">Qualifications / Ijazah</label>
+          <input type="text" id="t-qual" class="form-control" placeholder="Ijazah in Hafs 'an 'Asim, Al-Azhar Certified" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Experience *</label>
-          <input type="text" id="t-exp" class="form-control" placeholder="e.g. 7+ Years Online Teaching" required>
+          <label class="form-label">Experience Summary</label>
+          <input type="text" id="t-exp" class="form-control" placeholder="8+ Years Teaching Online">
         </div>
         <div class="form-group">
           <label class="form-label">Photo URL</label>
-          <input type="url" id="t-photo" class="form-control" placeholder="https://images.unsplash.com/...">
+          <input type="text" id="t-photo" class="form-control" placeholder="images/teachers/teacher-abdullah.png">
         </div>
         <div class="form-group">
           <label class="form-label">Short Bio</label>
@@ -314,6 +375,33 @@
   <script>
     let currentAdminUser = null;
 
+    function toggleAuthView(view) {
+      const loginBox = document.getElementById('login-box');
+      const forgotBox = document.getElementById('forgot-box');
+      const loginAlert = document.getElementById('login-alert');
+      const forgotAlert = document.getElementById('forgot-alert');
+      loginAlert.style.display = 'none';
+      forgotAlert.style.display = 'none';
+
+      if (view === 'forgot') {
+        const typedEmail = document.getElementById('login-email').value.trim();
+        if (typedEmail) document.getElementById('forgot-email').value = typedEmail;
+        loginBox.style.display = 'none';
+        forgotBox.style.display = 'block';
+      } else {
+        forgotBox.style.display = 'none';
+        loginBox.style.display = 'block';
+      }
+    }
+
+    function openChangePasswordModal() {
+      const modal = document.getElementById('password-modal');
+      const alertBox = document.getElementById('password-alert');
+      alertBox.style.display = 'none';
+      document.getElementById('change-password-form').reset();
+      modal.style.display = 'flex';
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       // Check active auth session
       if (supabaseClient) {
@@ -325,7 +413,16 @@
         }
 
         supabaseClient.auth.onAuthStateChange((event, session) => {
-          if (session && session.user) {
+          if (event === 'PASSWORD_RECOVERY') {
+            if (session && session.user) {
+              showDashboard(session.user);
+              openChangePasswordModal();
+              const alertBox = document.getElementById('password-alert');
+              alertBox.className = 'alert-box alert-success';
+              alertBox.innerText = 'Password recovery mode active. Please enter your new password below.';
+              alertBox.style.display = 'block';
+            }
+          } else if (session && session.user) {
             showDashboard(session.user);
           } else {
             showLogin();
@@ -360,6 +457,77 @@
         } finally {
           loginBtn.disabled = false;
           loginBtn.innerText = 'Sign In to Dashboard →';
+        }
+      });
+
+      // Forgot Password form handler
+      const forgotForm = document.getElementById('forgot-form');
+      forgotForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('forgot-email').value.trim();
+        const alertBox = document.getElementById('forgot-alert');
+        const forgotBtn = document.getElementById('forgot-btn');
+
+        forgotBtn.disabled = true;
+        forgotBtn.innerText = 'Sending Link...';
+        alertBox.style.display = 'none';
+
+        try {
+          const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin + window.location.pathname
+          });
+          if (error) throw error;
+          alertBox.className = 'alert-box alert-success';
+          alertBox.innerHTML = `<strong>Success:</strong> Password reset link sent to <strong>${email}</strong>. Check your inbox to set a new password.`;
+          alertBox.style.display = 'block';
+          forgotForm.reset();
+        } catch (err) {
+          alertBox.className = 'alert-box alert-error';
+          alertBox.innerText = err.message || 'Failed to send reset link.';
+          alertBox.style.display = 'block';
+        } finally {
+          forgotBtn.disabled = false;
+          forgotBtn.innerText = 'Send Reset Link →';
+        }
+      });
+
+      // Change Password form handler
+      const passwordForm = document.getElementById('change-password-form');
+      passwordForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const alertBox = document.getElementById('password-alert');
+        const saveBtn = document.getElementById('save-password-btn');
+
+        if (newPassword !== confirmPassword) {
+          alertBox.className = 'alert-box alert-error';
+          alertBox.innerText = 'Passwords do not match. Please re-enter.';
+          alertBox.style.display = 'block';
+          return;
+        }
+
+        saveBtn.disabled = true;
+        saveBtn.innerText = 'Updating...';
+        alertBox.style.display = 'none';
+
+        try {
+          const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+          if (error) throw error;
+          alertBox.className = 'alert-box alert-success';
+          alertBox.innerText = 'Password updated successfully!';
+          alertBox.style.display = 'block';
+          passwordForm.reset();
+          setTimeout(() => {
+            closeModals();
+          }, 1500);
+        } catch (err) {
+          alertBox.className = 'alert-box alert-error';
+          alertBox.innerText = err.message || 'Password update failed.';
+          alertBox.style.display = 'block';
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.innerText = 'Update Password';
         }
       });
 
@@ -408,8 +576,8 @@
           const { error } = await supabaseClient.from('teachers').insert([{
             name,
             qualification,
-            experience,
-            photo_url: photo_url || null,
+            experience: experience || 'Certified Tutor',
+            photo_url: photo_url || 'images/teachers/teacher-abdullah.png',
             bio,
             is_active: true
           }]);
@@ -421,7 +589,7 @@
         }
       });
 
-      // Announcement Form Handler
+      // Save Announcement Form Handler
       document.getElementById('announcement-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const message = document.getElementById('ann-text').value.trim();
@@ -429,15 +597,17 @@
         const is_active = document.getElementById('ann-active').checked;
 
         try {
-          const { error } = await supabaseClient.from('announcements').insert([{
-            message,
-            link_url: link_url || null,
-            is_active
-          }]);
-          if (error) throw error;
-          alert('Announcement banner saved!');
+          await supabaseClient.from('announcements').update({ is_active: false }).neq('id', '00000000-0000-0000-0000-000000000000');
+          if (message) {
+            await supabaseClient.from('announcements').insert([{
+              message,
+              link_url,
+              is_active
+            }]);
+          }
+          alert('Announcement settings updated!');
         } catch (err) {
-          alert('Error saving announcement: ' + err.message);
+          alert('Error updating announcement: ' + err.message);
         }
       });
     });
@@ -445,6 +615,7 @@
     function showLogin() {
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('dashboard-section').style.display = 'none';
+      currentAdminUser = null;
     }
 
     function showDashboard(user) {
@@ -452,17 +623,12 @@
       document.getElementById('login-section').style.display = 'none';
       document.getElementById('dashboard-section').style.display = 'block';
       document.getElementById('user-email-display').innerText = user.email || 'Admin';
-      loadAllDashboardData();
-    }
 
-    async function loadAllDashboardData() {
-      await Promise.all([
-        loadBookings(),
-        loadMessages(),
-        loadPrograms(),
-        loadTeachers(),
-        loadAnnouncementForm()
-      ]);
+      loadBookings();
+      loadMessages();
+      loadPrograms();
+      loadTeachers();
+      loadAnnouncementForm();
     }
 
     // Load Bookings
@@ -490,18 +656,15 @@
 
       tbody.innerHTML = data.map(b => {
         const dateStr = new Date(b.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-        const badgeClass = `badge-${b.status || 'new'}`;
         return `
           <tr>
             <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
             <td><strong>${b.student_name}</strong></td>
-            <td>
-              <span style="color: var(--gold-light); font-weight: 600;">${b.contact_info}</span>
-            </td>
-            <td>${b.program_title || 'General Trial'}</td>
+            <td>${b.contact_info}</td>
+            <td><span class="badge-status badge-new">${b.program_title || 'General'}</span></td>
             <td>${b.preferred_time || 'Flexible'}</td>
             <td>
-              <select onchange="updateBookingStatus('${b.id}', this.value)" class="form-control" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; width: auto; display: inline-block;">
+              <select onchange="updateBookingStatus('${b.id}', this.value)" style="background: var(--midnight-dark); color: #FFF; border: 1px solid var(--midnight-border); border-radius: var(--radius-sm); padding: 0.25rem 0.5rem; font-size: 0.8rem;">
                 <option value="new" ${b.status === 'new' ? 'selected' : ''}>New</option>
                 <option value="contacted" ${b.status === 'contacted' ? 'selected' : ''}>Contacted</option>
                 <option value="enrolled" ${b.status === 'enrolled' ? 'selected' : ''}>Enrolled</option>
@@ -649,7 +812,7 @@
 
       tbody.innerHTML = data.map(t => `
         <tr>
-          <td><img src="${t.photo_url || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=80&h=80&fit=crop'}" width="36" height="36" style="border-radius:50%; object-fit:cover;"></td>
+          <td><img src="${t.photo_url || 'images/teachers/teacher-abdullah.png'}" width="36" height="36" style="border-radius:50%; object-fit:cover;"></td>
           <td><strong>${t.name}</strong></td>
           <td>${t.qualification}</td>
           <td>${t.experience}</td>
@@ -700,6 +863,7 @@
     function closeModals() {
       document.getElementById('program-modal').style.display = 'none';
       document.getElementById('teacher-modal').style.display = 'none';
+      document.getElementById('password-modal').style.display = 'none';
     }
   </script>
 

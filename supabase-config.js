@@ -178,21 +178,56 @@ async function submitContactMessage(msgData) {
   return data;
 }
 
-// Auto-render top announcement banner if element exists
-document.addEventListener('DOMContentLoaded', async () => {
-  const bannerContainer = document.getElementById('global-announcement-banner');
-  if (bannerContainer) {
-    const ann = await getActiveAnnouncement();
-    if (ann && ann.message) {
-      bannerContainer.innerHTML = `
-        <div class="announcement-bar">
-          <div class="container announcement-inner">
-            <span>${ann.message}</span>
-            ${ann.link_url ? `<a href="${ann.link_url}" class="announcement-link">Learn More &rarr;</a>` : ''}
-          </div>
-        </div>
-      `;
-      bannerContainer.style.display = 'block';
+// Global Mobile Navigation Handler
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (toggleBtn && navLinks) {
+    let backdrop = document.querySelector('.mobile-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'mobile-backdrop';
+      document.body.appendChild(backdrop);
     }
+
+    const openMenu = () => {
+      toggleBtn.classList.add('active');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      navLinks.classList.add('open');
+      backdrop.classList.add('active');
+      document.body.classList.add('menu-open');
+    };
+
+    const closeMenu = () => {
+      toggleBtn.classList.remove('active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      navLinks.classList.remove('open');
+      backdrop.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    };
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (navLinks.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    backdrop.addEventListener('click', closeMenu);
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        closeMenu();
+      }
+    });
   }
 });

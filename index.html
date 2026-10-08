@@ -15,9 +15,6 @@
 </head>
 <body>
 
-  <!-- Top Announcement Banner -->
-  <div id="global-announcement-banner" style="display: none;"></div>
-
   <!-- Navbar -->
   <header class="navbar">
     <div class="nav-container">
@@ -25,6 +22,11 @@
         <img src="icon.png" alt="Muslim Ultra" width="38" height="38" style="border-radius:10px">
         <span class="brand-name">Muslim Ultra</span>
       </a>
+      <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
       <ul class="nav-links">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="academy.html">Academy</a></li>
@@ -41,7 +43,7 @@
     <div class="container">
       <div class="badge-pill">🛡️ Strict Privacy-First Islamic Ecosystem</div>
       <h1>Elevate Your Spiritual Journey With <span class="gold">Muslim Ultra</span></h1>
-      <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, Qibla compass, citation-backed Muslim AI, and live 1-on-1 Online Quran Academy.</p>
+      <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, tilt-compensated Qibla compass, citation-backed Muslim AI, and certified 1-on-1 Online Quran Academy.</p>
       
       <div class="hero-actions">
         <a href="academy.html" class="btn-cta">Explore Quran Academy →</a>
@@ -53,7 +55,7 @@
         <div class="card" style="text-align: left;">
           <div class="card-icon">🕌</div>
           <h3>100% On-Device GPS</h3>
-          <p>High-precision astronomical calculation for Fajr, Dhuhr, Asr, Maghrib, and Isha. Your location never leaves your phone.</p>
+          <p>High-precision astronomical calculation for Fajr, Dhuhr, Asr, Maghrib, and Isha. Your location coordinates never leave your phone.</p>
           <span class="card-tag">Zero Cloud Tracking</span>
         </div>
         <div class="card" style="text-align: left;">
@@ -63,88 +65,131 @@
           <span class="card-tag">Full Offline Mode</span>
         </div>
         <div class="card" style="text-align: left;">
-          <div class="card-icon">🎓</div>
-          <h3>Live 1-on-1 Academy</h3>
-          <p>Personalized Noorani Qaida, Tajweed, and Hifz classes for kids and adults with certified Ijazah tutors.</p>
-          <span class="card-tag">3-Day Free Trial</span>
+          <div class="card-icon">🤖</div>
+          <h3>Muslim AI & Qibla</h3>
+          <p>Authentic Islamic guidance backed by Quran & Hadith citations, alongside true tilt-compensated magnetic sensor fusion.</p>
+          <span class="card-tag">Smart & Precise</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ACADEMY TEASER SECTION (New A2 Requirement) -->
-  <section class="academy-section" style="background: radial-gradient(circle at 50% 50%, rgba(201, 162, 39, 0.08) 0%, rgba(10, 22, 40, 0.95) 100%); border-top: 1px solid var(--midnight-border); border-bottom: 1px solid var(--midnight-border);">
+  <!-- 1. ACADEMY SPOTLIGHT SECTION (Visually distinct classroom styling) -->
+  <section class="academy-spotlight-section">
     <div class="container">
-      <div class="section-header">
-        <div class="badge-pill">✦ Muslim Ultra Quran Academy</div>
-        <h2>Learn Quran Online with Certified Instructors</h2>
-        <p>Interactive 1-on-1 live sessions for beginners, children, and advanced reciters worldwide.</p>
-      </div>
+      <div class="academy-spotlight-box">
+        <div style="text-align: center; max-width: 760px; margin: 0 auto 2.5rem;">
+          <div class="academy-badge-tag">🎓 Certified Live 1-on-1 Tutoring</div>
+          <h2 style="font-size: 2.2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem;">Muslim Ultra Online Quran Academy</h2>
+          <p style="color: var(--text-secondary); font-size: 1.05rem;">Personalized live one-on-one sessions for kids, sisters, and brothers worldwide with verified Al-Azhar and Ijazah-holding teachers.</p>
+        </div>
 
-      <div class="grid-3" style="margin-bottom: 2.5rem;">
-        <div class="card">
-          <div class="card-icon">👶</div>
-          <h3>Noorani Qaida for Kids</h3>
-          <p>Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🎙️</div>
-          <h3>Tajweed & Tarteel Mastery</h3>
-          <p>Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🧠</div>
-          <h3>Hifz-ul-Quran Memorization</h3>
-          <p>Custom daily revision and memorization schedule guided by experienced Huffaz mentors.</p>
-        </div>
-      </div>
+        <div class="grid-3" style="margin-bottom: 2.5rem;">
+          <div class="academy-card">
+            <div>
+              <div class="academy-card-top">
+                <span style="font-size: 1.5rem;">👶</span>
+                <span class="academy-card-price">Starting $35/mo</span>
+              </div>
+              <h3 style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Noorani Qaida for Kids</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 600;">
+              ✓ 30 mins / 3 days a week • 1-on-1 Live
+            </div>
+          </div>
 
-      <div style="text-align: center;">
-        <a href="academy.html" class="btn-cta" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
-          Visit Quran Academy & Book Free Trial &rarr;
-        </a>
+          <div class="academy-card">
+            <div>
+              <div class="academy-card-top">
+                <span style="font-size: 1.5rem;">🎙️</span>
+                <span class="academy-card-price">Starting $45/mo</span>
+              </div>
+              <h3 style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Tajweed & Tarteel Mastery</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 600;">
+              ✓ Dedicated Female Tutors Available
+            </div>
+          </div>
+
+          <div class="academy-card">
+            <div>
+              <div class="academy-card-top">
+                <span style="font-size: 1.5rem;">🧠</span>
+                <span class="academy-card-price">Starting $65/mo</span>
+              </div>
+              <h3 style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Hifz-ul-Quran Memorization</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Custom daily revision (Sabaq, Sabaqi, Manzil) guided by experienced Huffaz mentors.</p>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 600;">
+              ✓ 45 mins / 5 days a week • Personalized Schedule
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="academy.html" class="btn-cta" style="padding: 0.85rem 2rem; font-size: 1rem;">
+            Visit Full Academy & View Instructors &rarr;
+          </a>
+          <a href="academy.html#trial-booking" class="btn-secondary" style="padding: 0.85rem 1.8rem; font-size: 1rem;">
+            Book 3-Day Free Trial ✦
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- 2. APP FEATURES SECTION (Distinct On-Device Suite) -->
   <section class="features-section" id="features">
     <div class="container">
       <div class="section-header">
+        <div class="badge-pill">📱 Mobile Application Suite</div>
         <h2>Crafted For Modern Muslim Excellence</h2>
         <p>Built with our signature Midnight Navy and Celestial Gold aesthetic, eliminating bloat and commercial tracking.</p>
       </div>
 
       <div class="grid-3">
-        <div class="card">
+        <div class="app-feature-card">
+          <div class="feature-category">GPS & Astronomy</div>
           <div class="card-icon">⏱️</div>
           <h3>Astronomical Prayer Times</h3>
           <p>Supports all major international calculation methods: Muslim World League (MWL), ISNA, Umm al-Qura (Makkah), Egyptian Authority, and Karachi.</p>
         </div>
-        <div class="card">
+
+        <div class="app-feature-card">
+          <div class="feature-category">Sensor Fusion</div>
           <div class="card-icon">🧭</div>
           <h3>Magnetic Qibla Compass</h3>
-          <p>Real-time live azimuth and distance calculation pointing directly to the Holy Kaaba in Makkah (21.4225° N, 39.8262° E) with calibration feedback.</p>
+          <p>Real-time live azimuth and distance calculation pointing directly to the Holy Kaaba in Makkah (21.4225° N, 39.8262° E) with tilt-compensated feedback.</p>
         </div>
-        <div class="card">
+
+        <div class="app-feature-card">
+          <div class="feature-category">Authentic Texts</div>
+          <div class="card-icon">📖</div>
+          <h3>Tanzil Quran & Audio</h3>
+          <p>Crystal-clear Uthmani script with English and Urdu verse-by-verse translations, bookmarks, and offline Mishary Rashid Alafasy recitations.</p>
+        </div>
+
+        <div class="app-feature-card">
+          <div class="feature-category">Verified Guidance</div>
+          <div class="card-icon">🤖</div>
+          <h3>Muslim AI Assistant</h3>
+          <p>Ask questions about Fiqh, Quranic context, and daily Islamic etiquette with verified citations and authentic scholarly guardrails.</p>
+        </div>
+
+        <div class="app-feature-card">
+          <div class="feature-category">Sunnah Supplications</div>
           <div class="card-icon">🤲</div>
-          <h3>Hisn al-Muslim Supplications</h3>
-          <p>Authentic Sunnah duas for morning and evening adhkar, istikhara, relief from distress, travel, illness, and gratitude with phonetic audio & meanings.</p>
+          <h3>Hisn al-Muslim Duas</h3>
+          <p>Authentic Sunnah duas for morning and evening adhkar, istikhara, relief from distress, travel, illness, and gratitude with audio and meanings.</p>
         </div>
-        <div class="card">
+
+        <div class="app-feature-card">
+          <div class="feature-category">Localization</div>
           <div class="card-icon">🌐</div>
           <h3>Multilingual & Native RTL</h3>
-          <p>Full support for English, Arabic (العربية), and Urdu (اردو) with authentic right-to-left UI mirroring and typography.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🌙</div>
-          <h3>Hijri Calendar & Events</h3>
-          <p>Accurate Islamic lunar dates with customizable +/- 2 days astronomical adjustment and key Islamic event reminders.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">⚡</div>
-          <h3>Zero-Cost Offline Intent Engine</h3>
-          <p>Utility questions ("When is Asr?", "What is today's Hijri date?") are intercepted and answered on-device instantly with $0 LLM cost.</p>
+          <p>Full support for English, Arabic (العربية), and Urdu (اردو) with authentic right-to-left UI mirroring, Hijri calendar, and zero commercial trackers.</p>
         </div>
       </div>
 
@@ -157,7 +202,7 @@
             <li><span class="check">✓</span> 0 Commercial Ad SDKs</li>
             <li><span class="check">✓</span> 0 Analytics Trackers</li>
             <li><span class="check">✓</span> 0 Location Sharing</li>
-            <li><span class="check">✓</span> 100% Open Source Code</li>
+            <li><span class="check">✓</span> 100% Privacy-First Architecture</li>
           </ul>
         </div>
         <div>
