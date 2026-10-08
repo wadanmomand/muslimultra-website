@@ -1049,3 +1049,74 @@ footer {
   .hero-actions { flex-direction: column; }
   .academy-spotlight-box { padding: 2rem 1.25rem; }
 }
+
+/* ============================================================
+   MOBILE OPTIMIZATION PACK
+   Touch-friendly, zoom-safe, compact layouts for phones.
+   ============================================================ */
+
+/* 1. Prevent iOS Safari auto-zoom when tapping form fields (needs 16px+) */
+@media (max-width: 768px) {
+  .form-control { font-size: 16px; }
+}
+
+/* 2. Tighter page rhythm + container padding on phones */
+@media (max-width: 768px) {
+  .container { padding: 0 1.1rem; }
+  .page-content { padding: 2.5rem 0 4rem; }
+  .features-section, .academy-section { padding: 3rem 0; }
+}
+
+/* 3. Full-width buttons ONLY in hero actions.
+   (The old global rule broke admin/table buttons on small screens.) */
+@media (max-width: 480px) {
+  .hero-actions .btn-cta,
+  .hero-actions .btn-secondary { width: 100%; }
+}
+
+/* 4. Admin tables: compact cells on mobile, keep horizontal scroll smooth */
+@media (max-width: 768px) {
+  .data-table { font-size: 0.82rem; }
+  .data-table th,
+  .data-table td { padding: 0.65rem 0.75rem; }
+  .data-table-wrapper { -webkit-overflow-scrolling: touch; }
+  .action-btn { min-height: 40px; padding: 0.45rem 0.7rem; font-size: 0.8rem; }
+}
+
+/* 5. Admin stat cards: 2-up grid on phones instead of 1 tall column */
+@media (max-width: 560px) {
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+  .stat-card { padding: 1rem; }
+  .stat-card .stat-val { font-size: 1.6rem; }
+  .stat-card .stat-label { font-size: 0.72rem; }
+}
+
+/* 6. WhatsApp float: tuck into the corner on small phones */
+@media (max-width: 480px) {
+  .whatsapp-float {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* 7. Card + spotlight padding tune for narrow screens */
+@media (max-width: 480px) {
+  .academy-card { padding: 1.35rem; }
+  .program-card { padding: 1.35rem; }
+  .form-card { padding: 1.5rem; }
+  .teacher-avatar { width: 72px; height: 72px; }
+}
+
+/* 8. Footer breathing room on phones */
+@media (max-width: 480px) {
+  .footer-brand p { font-size: 0.9rem; }
+  .footer-col a { padding: 0.35rem 0; display: inline-block; }
+}
+
+/* 9. Long strings (URLs, emails) never break layout */
+.data-table td, .form-card, .card { overflow-wrap: break-word; }
+
+/* 10. Smooth momentum scrolling for tab bars on iOS */
+.admin-tabs { -webkit-overflow-scrolling: touch; }
