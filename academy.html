@@ -54,18 +54,19 @@
   <main class="chapter-wrapper">
 
     <!-- Hero Section -->
-    <section class="chapter-section chapter-hero" style="min-height: 85vh;">
+    <section class="chapter-section chapter-hero" style="min-height: 85vh; position: relative; overflow: hidden;">
+      <!-- Hero Background Artwork (Glowing Quran Behind Text) -->
+      <div class="hero-bg-backdrop" aria-hidden="true">
+        <img src="banners/glowing-quran.webp" alt="" class="hero-bg-img" width="1200" height="675" loading="eager" decoding="async">
+        <div class="hero-bg-scrim"></div>
+        <div class="revelation-shimmer"></div>
+      </div>
+
       <div class="container hero-scrim">
         <div class="badge-pill">✦ Certified 1-on-1 Online Quran Tutoring</div>
         <h1>Master Quran Recitation, Tajweed & Deen <span class="gold-gradient">From Home</span></h1>
-        <p class="lead">Personalized live classes tailored for children and adults. Learn Noorani Qaida, flawless Tajweed, Hifz memorization, and Islamic values with verified Al-Azhar and Ijazah-certified tutors.</p>
+        <p class="lead" style="max-width: 780px; margin: 0 auto 2.5rem;">Personalized live classes tailored for children and adults. Learn Noorani Qaida, flawless Tajweed, Hifz memorization, and Islamic values with verified Al-Azhar and Ijazah-certified tutors.</p>
         
-        <!-- Revelation Centerpiece Artwork (Directly Under Text) -->
-        <div class="revelation-frame" data-scroll-parallax="0.08">
-          <img src="banners/glowing-quran.webp" alt="Holy Quran on Carved Rehal with Divine Golden Radiance" class="revelation-img" width="1200" height="675" loading="eager" decoding="async">
-          <div class="revelation-shimmer" aria-hidden="true"></div>
-        </div>
-
         <div style="display: flex; justify-content: center; gap: 1.25rem; margin-bottom: 3.5rem; flex-wrap: wrap;">
           <a href="#trial-booking" class="btn-cta">Book 3-Day Free Trial →</a>
           <a href="#programs" class="btn-secondary">Explore Programs</a>
