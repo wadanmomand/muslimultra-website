@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme.css">
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
   <style>
@@ -39,8 +39,13 @@
       .modal-card { padding: 1.4rem; border-radius: 14px; }
     }
   </style>
+  <!-- External CDN Libraries (Three.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- Fullscreen 3D Cosmos Background Viewport (Command Deck) -->
+  <div id="cosmos-viewport" class="cosmos-canvas-container" aria-hidden="true"></div>
 
   <!-- Login Container (Shown if logged out) -->
   <div id="login-section" class="container" style="max-width: 460px; margin: auto; padding: 4rem 1.5rem;">
@@ -924,6 +929,20 @@
     }
   </script>
 
-  <script src="main-effects.js"></script>
+  
+  <!-- Cosmos Engine -->
+  <script src="cosmos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.Cosmos) {
+        window.Cosmos.init('cosmos-viewport', {
+          density: 'low',
+          accent: 'quiet',
+          speed: 0.4,
+          interactive: false
+        });
+      }
+    });
+  </script>
 </body>
 </html>

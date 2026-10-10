@@ -9,16 +9,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme.css">
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
+  <!-- External CDN Libraries (Three.js, Lenis, GSAP, ScrollTrigger) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <div class="mobile-backdrop"></div>
+  <!-- Fullscreen 3D Cosmos Background Viewport (Archive Stars) -->
+  <div id="cosmos-viewport" class="cosmos-canvas-container" aria-hidden="true"></div>
 
-  <!-- Navbar -->
+  <!-- Mobile Drawer Backdrop -->
+  <div class="mobile-backdrop"></div>
   <header class="navbar">
     <div class="nav-container">
       <a href="index.html" class="brand-logo">
@@ -150,6 +156,21 @@
     </div>
   </footer>
 
-  <script src="main-effects.js"></script>
+  
+  <!-- Engine Scripts -->
+  <script src="cosmos.js"></script>
+  <script src="journey.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.Cosmos) {
+        window.Cosmos.init('cosmos-viewport', {
+          density: 'low',
+          accent: 'quiet',
+          speed: 0.5,
+          interactive: true
+        });
+      }
+    });
+  </script>
 </body>
 </html>
