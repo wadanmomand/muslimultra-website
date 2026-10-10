@@ -169,12 +169,55 @@
     }
   }
 
+  // 5. Floating Navbar Scroll Condenser & Back-To-Top Trigger
+  function initHeaderAndBackToTop() {
+    const navbar = document.querySelector('.navbar');
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    function onScroll() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Navbar scroll condenser (> 40px)
+      if (navbar) {
+        if (scrollY > 40) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }
+
+      // Back to top button (> 600px)
+      if (backToTopBtn) {
+        if (scrollY > 600) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (lenisInstance) {
+          lenisInstance.scrollTo(0, { duration: 1.2 });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+  }
+
   const Journey = {
     init: function () {
       initMobileNav();
       initLenis();
       initScrollProgressRail();
       initSafeReveals();
+      initHeaderAndBackToTop();
       console.log('[Journey] Motion and scroll controller initialized.');
       return this;
     }
