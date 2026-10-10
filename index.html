@@ -8,21 +8,25 @@
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
-  <!-- 3D & Animation Engines (CDN) -->
+  <link rel="stylesheet" href="theme.css">
+
+  <!-- External CDN Libraries (Three.js, Lenis, GSAP, ScrollTrigger) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
 </head>
 <body>
+
+  <!-- Fullscreen 3D Cosmos Background Viewport -->
+  <div id="cosmos-viewport" class="cosmos-canvas-container" aria-hidden="true"></div>
 
   <!-- Mobile Drawer Backdrop -->
   <div class="mobile-backdrop"></div>
 
-  <!-- Navbar -->
+  <!-- Shared Navbar -->
   <header class="navbar">
     <div class="nav-container">
       <a href="index.html" class="brand-logo">
@@ -45,212 +49,335 @@
     </div>
   </header>
 
-  <!-- 3D Hero Section -->
-  <section class="hero">
-    <!-- Three.js 3D Cosmic Background Canvas Container -->
-    <div id="hero-canvas-container" aria-hidden="true"></div>
+  <main class="chapter-wrapper">
 
-    <div class="container hero-content">
-      <div class="badge-pill">🛡️ Strict Privacy-First Islamic Ecosystem</div>
-      <h1>Elevate Your Spiritual Journey With <span class="gold-gradient">Muslim Ultra</span></h1>
-      <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, tilt-compensated Qibla compass, citation-backed Muslim AI, and certified 1-on-1 Online Quran Academy.</p>
-      
-      <div class="hero-actions">
-        <a href="academy.html" class="btn-cta">Explore Quran Academy →</a>
-        <a href="#features" class="btn-secondary">App Features ✦</a>
-      </div>
+    <!-- =========================================================================
+         CHAPTER 1: IGNITION (HERO / THE CELESTIAL AWAKENING)
+         ========================================================================= -->
+    <section id="hero" class="chapter-section chapter-hero">
+      <div class="container hero-scrim">
+        <div class="badge-pill">🛡️ Strict Privacy-First Islamic Ecosystem</div>
+        <h1>Elevate Your Spiritual Journey With <span class="gold-gradient">Muslim Ultra</span></h1>
+        <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, tilt-compensated Qibla compass, citation-backed Muslim AI, and certified 1-on-1 Online Quran Academy.</p>
+        
+        <div style="display: flex; justify-content: center; gap: 1.25rem; margin-bottom: 3.5rem; flex-wrap: wrap;">
+          <a href="academy.html" class="btn-cta">Explore Quran Academy →</a>
+          <a href="#features" class="btn-secondary">App Features ✦</a>
+        </div>
 
-      <!-- Hero Visual Highlight / Metric Cards -->
-      <div class="grid-3" style="margin-top: 2.5rem;">
-        <div class="card" style="text-align: left;">
-          <div class="card-icon">🕌</div>
-          <h3>100% On-Device GPS</h3>
-          <p>High-precision astronomical calculation for Fajr, Dhuhr, Asr, Maghrib, and Isha. Your location coordinates never leave your phone.</p>
-          <span class="card-tag">Zero Cloud Tracking</span>
-        </div>
-        <div class="card" style="text-align: left;">
-          <div class="card-icon">📖</div>
-          <h3>Tanzil Uthmani Quran</h3>
-          <p>Complete 114 Surahs with verified English and Urdu translations, plus EveryAyah audio recitation by Sheikh Mishary Alafasy.</p>
-          <span class="card-tag">Full Offline Mode</span>
-        </div>
-        <div class="card" style="text-align: left;">
-          <div class="card-icon">🤖</div>
-          <h3>Muslim AI & Qibla</h3>
-          <p>Authentic Islamic guidance backed by Quran & Hadith citations, alongside true tilt-compensated magnetic sensor fusion.</p>
-          <span class="card-tag">Smart & Precise</span>
+        <!-- 3 Metric Glass Cards -->
+        <div class="chapter-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; text-align: left;">
+          <div class="glass-card">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🕌</div>
+            <h3>100% On-Device GPS</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">High-precision astronomical calculation for Fajr, Dhuhr, Asr, Maghrib, and Isha. Your location coordinates never leave your phone.</p>
+            <div style="margin-top: 1rem; font-size: 0.82rem; font-weight: 700; color: var(--gold-light);">Zero Cloud Tracking</div>
+          </div>
+          <div class="glass-card">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">📖</div>
+            <h3>Tanzil Uthmani Quran</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Complete 114 Surahs with verified English and Urdu translations, plus EveryAyah audio recitation by Sheikh Mishary Alafasy.</p>
+            <div style="margin-top: 1rem; font-size: 0.82rem; font-weight: 700; color: var(--gold-light);">Full Offline Mode</div>
+          </div>
+          <div class="glass-card">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🤖</div>
+            <h3>Muslim AI & Qibla</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Authentic Islamic guidance backed by Quran & Hadith citations, alongside true tilt-compensated magnetic sensor fusion.</p>
+            <div style="margin-top: 1rem; font-size: 0.82rem; font-weight: 700; color: var(--gold-light);">Smart & Precise</div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <!-- Geometric Chapter Divider -->
+    <div class="chapter-divider" aria-hidden="true">
+      <div class="chapter-divider-line"></div>
+      <div class="chapter-divider-pattern"></div>
     </div>
-  </section>
 
-  <!-- 1. ACADEMY SPOTLIGHT SECTION (Visually distinct classroom styling) -->
-  <section class="academy-spotlight-section">
-    <div class="container">
-      <div class="academy-spotlight-box">
-        <div style="text-align: center; max-width: 760px; margin: 0 auto 2.5rem;">
-          <div class="academy-badge-tag">🎓 Certified Live 1-on-1 Tutoring</div>
-          <h2 style="font-size: 2.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem;">Muslim Ultra Online Quran Academy</h2>
-          <p style="color: var(--text-secondary); font-size: 1.05rem;">Personalized live one-on-one sessions for kids, sisters, and brothers worldwide with verified Al-Azhar and Ijazah-holding teachers.</p>
-        </div>
+    <!-- =========================================================================
+         CHAPTER 2: ACADEMY CONSTELLATION (SPOTLIGHT & LIVE TUTORING)
+         ========================================================================= -->
+    <section id="academy" class="chapter-section">
+      <div class="container">
+        <div class="academy-spotlight-box">
+          <div style="text-align: center; max-width: 760px; margin: 0 auto 2.5rem;">
+            <div class="academy-badge-tag">🎓 Certified Live 1-on-1 Tutoring</div>
+            <h2>Muslim Ultra Online Quran Academy</h2>
+            <p style="color: var(--text-secondary); font-size: 1.05rem; margin-top: 0.5rem;">Personalized live one-on-one sessions for kids, sisters, and brothers worldwide with verified Al-Azhar and Ijazah-holding teachers.</p>
+          </div>
 
-        <!-- Academy Banner Artwork -->
-        <div class="banner-wrapper" style="margin-bottom: 3rem;">
-          <img src="banners/academy-banner.webp" alt="Muslim Ultra Academy Banner" class="banner-img" loading="lazy">
-        </div>
+          <!-- Academy Banner Artwork -->
+          <div class="banner-wrapper" style="margin-bottom: 3rem;">
+            <img src="banners/academy-banner.webp" alt="Muslim Ultra Academy Banner" class="banner-img" loading="lazy">
+          </div>
 
-        <div class="grid-3" style="margin-bottom: 2.75rem;">
-          <div class="academy-card">
-            <div>
-              <div class="academy-card-top">
-                <span style="font-size: 1.5rem;">👶</span>
-                <span class="academy-card-price">Starting $35/mo</span>
+          <!-- 3 Program Cards -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-bottom: 2.75rem;">
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div class="academy-card-top">
+                  <span style="font-size: 1.75rem;">👶</span>
+                  <span class="academy-card-price">Starting $35/mo</span>
+                </div>
+                <h3>Noorani Qaida for Kids</h3>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
               </div>
-              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Noorani Qaida for Kids</h3>
-              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.55;">Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
+              <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
+                ✓ 30 mins / 3 days a week • 1-on-1 Live
+              </div>
             </div>
-            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
-              ✓ 30 mins / 3 days a week • 1-on-1 Live
+
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div class="academy-card-top">
+                  <span style="font-size: 1.75rem;">🎙️</span>
+                  <span class="academy-card-price">Starting $45/mo</span>
+                </div>
+                <h3>Tajweed & Tarteel Mastery</h3>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
+              </div>
+              <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
+                ✓ Dedicated Female Tutors Available
+              </div>
+            </div>
+
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div class="academy-card-top">
+                  <span style="font-size: 1.75rem;">🧠</span>
+                  <span class="academy-card-price">Starting $65/mo</span>
+                </div>
+                <h3>Hifz-ul-Quran Memorization</h3>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">Custom daily revision (Sabaq, Sabaqi, Manzil) guided by experienced Huffaz mentors.</p>
+              </div>
+              <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
+                ✓ 45 mins / 5 days a week • Personalized Schedule
+              </div>
             </div>
           </div>
 
-          <div class="academy-card">
-            <div>
-              <div class="academy-card-top">
-                <span style="font-size: 1.5rem;">🎙️</span>
-                <span class="academy-card-price">Starting $45/mo</span>
-              </div>
-              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Tajweed & Tarteel Mastery</h3>
-              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.55;">Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
-            </div>
-            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
-              ✓ Dedicated Female Tutors Available
-            </div>
-          </div>
-
-          <div class="academy-card">
-            <div>
-              <div class="academy-card-top">
-                <span style="font-size: 1.5rem;">🧠</span>
-                <span class="academy-card-price">Starting $65/mo</span>
-              </div>
-              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Hifz-ul-Quran Memorization</h3>
-              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.55;">Custom daily revision (Sabaq, Sabaqi, Manzil) guided by experienced Huffaz mentors.</p>
-            </div>
-            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
-              ✓ 45 mins / 5 days a week • Personalized Schedule
-            </div>
+          <div style="text-align: center; display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap;">
+            <a href="academy.html" class="btn-cta" style="padding: 0.85rem 2.2rem; font-size: 1rem;">
+              Visit Full Academy & View Instructors &rarr;
+            </a>
+            <a href="academy.html#trial-booking" class="btn-secondary" style="padding: 0.85rem 2rem; font-size: 1rem;">
+              Book 3-Day Free Trial ✦
+            </a>
           </div>
         </div>
-
-        <div style="text-align: center; display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap;">
-          <a href="academy.html" class="btn-cta" style="padding: 0.85rem 2.2rem; font-size: 1rem;">
-            Visit Full Academy & View Instructors &rarr;
-          </a>
-          <a href="academy.html#trial-booking" class="btn-secondary" style="padding: 0.85rem 2rem; font-size: 1rem;">
-            Book 3-Day Free Trial ✦
-          </a>
-        </div>
       </div>
+    </section>
+
+    <!-- Geometric Chapter Divider -->
+    <div class="chapter-divider" aria-hidden="true">
+      <div class="chapter-divider-line"></div>
+      <div class="chapter-divider-pattern"></div>
     </div>
-  </section>
 
-  <!-- 2. APP FEATURES SECTION (Distinct On-Device Suite) -->
-  <section class="features-section" id="features">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge-pill">📱 Mobile Application Suite</div>
-        <h2>Crafted For Modern Muslim Excellence</h2>
-        <p>Built with our signature Midnight Navy and Celestial Gold aesthetic, eliminating bloat and commercial tracking.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="app-feature-card">
-          <div class="feature-category">GPS & Astronomy</div>
-          <div class="card-icon">⏱️</div>
-          <h3>Astronomical Prayer Times</h3>
-          <p>Supports all major international calculation methods: Muslim World League (MWL), ISNA, Umm al-Qura (Makkah), Egyptian Authority, and Karachi.</p>
+    <!-- =========================================================================
+         CHAPTER 3: FEATURES ORBIT (ON-DEVICE ISLAMIC SUITE)
+         ========================================================================= -->
+    <section id="features" class="chapter-section">
+      <div class="container">
+        <div style="text-align: center; max-width: 760px; margin: 0 auto 3.5rem;">
+          <div class="badge-pill">📱 Mobile Application Suite</div>
+          <h2 style="margin: 0.85rem 0 0.5rem;">Crafted For Modern Muslim Excellence</h2>
+          <p class="lead">Built with our signature Midnight Navy and Celestial Gold aesthetic, eliminating bloat and commercial tracking.</p>
         </div>
 
-        <div class="app-feature-card">
-          <div class="feature-category">Sensor Fusion</div>
-          <div class="card-icon">🧭</div>
-          <h3>Magnetic Qibla Compass</h3>
-          <p>Real-time live azimuth and distance calculation pointing directly to the Holy Kaaba in Makkah (21.4225° N, 39.8262° E) with tilt-compensated feedback.</p>
-        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem;">
+          <div class="glass-card">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">GPS & Astronomy</div>
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">⏱️</div>
+            <h3>Astronomical Prayer Times</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Supports all major international calculation methods: Muslim World League (MWL), ISNA, Umm al-Qura (Makkah), Egyptian Authority, and Karachi.</p>
+          </div>
 
-        <div class="app-feature-card">
-          <div class="feature-category">Authentic Texts</div>
-          <div class="card-icon">📖</div>
-          <h3>Tanzil Quran & Audio</h3>
-          <p>Crystal-clear Uthmani script with English and Urdu verse-by-verse translations, bookmarks, and offline Mishary Rashid Alafasy recitations.</p>
-        </div>
+          <div class="glass-card">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Sensor Fusion</div>
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🧭</div>
+            <h3>Magnetic Qibla Compass</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Real-time live azimuth and distance calculation pointing directly to the Holy Kaaba in Makkah (21.4225° N, 39.8262° E) with tilt-compensated feedback.</p>
+          </div>
 
-        <div class="app-feature-card">
-          <div class="feature-category">Verified Guidance</div>
-          <div class="card-icon">🤖</div>
-          <h3>Muslim AI Assistant</h3>
-          <p>Ask questions about Fiqh, Quranic context, and daily Islamic etiquette with verified citations and authentic scholarly guardrails.</p>
-        </div>
+          <div class="glass-card">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Authentic Texts</div>
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">📖</div>
+            <h3>Tanzil Quran & Audio</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Crystal-clear Uthmani script with English and Urdu verse-by-verse translations, bookmarks, and offline Mishary Rashid Alafasy recitations.</p>
+          </div>
 
-        <div class="app-feature-card">
-          <div class="feature-category">Sunnah Supplications</div>
-          <div class="card-icon">🤲</div>
-          <h3>Hisn al-Muslim Duas</h3>
-          <p>Authentic Sunnah duas for morning and evening adhkar, istikhara, relief from distress, travel, illness, and gratitude with audio and meanings.</p>
-        </div>
+          <div class="glass-card">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Verified Guidance</div>
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🤖</div>
+            <h3>Muslim AI Assistant</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Ask questions about Fiqh, Quranic context, and daily Islamic etiquette with verified citations and authentic scholarly guardrails.</p>
+          </div>
 
-        <div class="app-feature-card">
-          <div class="feature-category">Localization</div>
-          <div class="card-icon">🌐</div>
-          <h3>Multilingual & Native RTL</h3>
-          <p>Full support for English, Arabic (العربية), and Urdu (اردو) with authentic right-to-left UI mirroring, Hijri calendar, and zero commercial trackers.</p>
-        </div>
-      </div>
+          <div class="glass-card">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Sunnah Supplications</div>
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🤲</div>
+            <h3>Hisn al-Muslim Duas</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Authentic Sunnah duas for morning and evening adhkar, istikhara, relief from distress, travel, illness, and gratitude with audio and meanings.</p>
+          </div>
 
-      <!-- Privacy Guarantee Banner -->
-      <div class="privacy-banner">
-        <div class="privacy-banner-content">
-          <h3>The Muslim Ultra Privacy Guarantee</h3>
-          <p>Your spiritual life is sacred. We never sell data, serve banner ads, or record your physical movements.</p>
-          <ul class="privacy-checklist">
-            <li><span class="check">✓</span> 0 Commercial Ad SDKs</li>
-            <li><span class="check">✓</span> 0 Analytics Trackers</li>
-            <li><span class="check">✓</span> 0 Location Sharing</li>
-            <li><span class="check">✓</span> 100% Privacy-First Architecture</li>
-          </ul>
-        </div>
-        <div>
-          <a href="privacy-policy.html" class="btn-cta">Read Privacy Policy →</a>
+          <div class="glass-card">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Localization</div>
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🌐</div>
+            <h3>Multilingual & Native RTL</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Full support for English, Arabic (العربية), and Urdu (اردو) with authentic right-to-left UI mirroring, Hijri calendar, and zero commercial trackers.</p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- App Download Banner CTA -->
-      <div class="banner-wrapper" style="margin-top: 3.5rem;">
-        <img src="banners/app-download-banner.webp" alt="Muslim Ultra App Download Banner" class="banner-img" loading="lazy">
-      </div>
+    <!-- Geometric Chapter Divider -->
+    <div class="chapter-divider" aria-hidden="true">
+      <div class="chapter-divider-line"></div>
+      <div class="chapter-divider-pattern"></div>
     </div>
-  </section>
 
-  <!-- Screenshots Section -->
-  <section class="shots" id="screenshots">
-    <div class="container">
-      <div class="section-head">
-        <h2>Screenshots</h2>
-        <p>Take a look inside Muslim Ultra — prayer, Quran, duas and Muslim AI.</p>
+    <!-- =========================================================================
+         CHAPTER 4: PRIVACY NEBULA (SACRED DATA PROMISE)
+         ========================================================================= -->
+    <section id="privacy" class="chapter-section" style="min-height: auto; padding: 4.5rem 0;">
+      <div class="container">
+        <div class="privacy-banner">
+          <div class="privacy-banner-content">
+            <h3>The Muslim Ultra Privacy Guarantee</h3>
+            <p>Your spiritual life is sacred. We never sell data, serve banner ads, or record your physical movements.</p>
+            <ul class="privacy-checklist">
+              <li><span class="check">✓</span> 0 Commercial Ad SDKs</li>
+              <li><span class="check">✓</span> 0 Analytics Trackers</li>
+              <li><span class="check">✓</span> 0 Location Sharing</li>
+              <li><span class="check">✓</span> 100% Privacy-First Architecture</li>
+            </ul>
+          </div>
+          <div>
+            <a href="privacy-policy.html" class="btn-cta" style="white-space: nowrap;">Read Privacy Policy →</a>
+          </div>
+        </div>
       </div>
-      <div class="phones">
-        <div class="phone"><img src="screenshots/home.png" alt="Muslim Ultra home screen" loading="lazy"><b>Home</b><small>Today's overview at a glance</small></div>
-        <div class="phone"><img src="screenshots/prayer.png" alt="Prayer times screen" loading="lazy"><b>Prayer Times</b><small>Today's schedule with next-prayer countdown</small></div>
-        <div class="phone"><img src="screenshots/quran.png" alt="Quran library screen" loading="lazy"><b>Quran</b><small>Full library, 114 surahs</small></div>
-        <div class="phone"><img src="screenshots/reader.png" alt="Quran reader screen" loading="lazy"><b>Quran Reader</b><small>Uthmani script + translations + audio</small></div>
-        <div class="phone"><img src="screenshots/dua.png" alt="Duas screen" loading="lazy"><b>Duas</b><small>Authentic daily supplications</small></div>
-        <div class="phone"><img src="screenshots/muslim-ai.png" alt="Muslim AI chat screen" loading="lazy"><b>Muslim AI</b><small>Cited answers in EN / AR / UR</small></div>
-      </div>
+    </section>
+
+    <!-- Geometric Chapter Divider -->
+    <div class="chapter-divider" aria-hidden="true">
+      <div class="chapter-divider-line"></div>
+      <div class="chapter-divider-pattern"></div>
     </div>
-  </section>
 
-  <!-- Footer -->
+    <!-- =========================================================================
+         CHAPTER 5: SCREENSHOTS PEDESTAL (INTERACTIVE APP SHOWCASE)
+         ========================================================================= -->
+    <section id="screenshots" class="chapter-section shots-pedestal">
+      <div class="container">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+          <h2>Screenshots</h2>
+          <p class="lead" style="margin-top: 0.5rem;">Take a look inside Muslim Ultra — prayer, Quran, duas and Muslim AI.</p>
+        </div>
+
+        <div class="phones-carousel-track">
+          <div class="phone-item">
+            <img src="screenshots/home.png" alt="Muslim Ultra home screen" loading="lazy">
+            <b>Home</b>
+            <small>Today's overview at a glance</small>
+          </div>
+          <div class="phone-item">
+            <img src="screenshots/prayer.png" alt="Prayer times screen" loading="lazy">
+            <b>Prayer Times</b>
+            <small>Today's schedule with next-prayer countdown</small>
+          </div>
+          <div class="phone-item">
+            <img src="screenshots/quran.png" alt="Quran library screen" loading="lazy">
+            <b>Quran</b>
+            <small>Full library, 114 surahs</small>
+          </div>
+          <div class="phone-item">
+            <img src="screenshots/reader.png" alt="Quran reader screen" loading="lazy">
+            <b>Quran Reader</b>
+            <small>Uthmani script + translations + audio</small>
+          </div>
+          <div class="phone-item">
+            <img src="screenshots/dua.png" alt="Duas screen" loading="lazy">
+            <b>Duas</b>
+            <small>Authentic daily supplications</small>
+          </div>
+          <div class="phone-item">
+            <img src="screenshots/muslim-ai.png" alt="Muslim AI chat screen" loading="lazy">
+            <b>Muslim AI</b>
+            <small>Cited answers in EN / AR / UR</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Geometric Chapter Divider -->
+    <div class="chapter-divider" aria-hidden="true">
+      <div class="chapter-divider-line"></div>
+      <div class="chapter-divider-pattern"></div>
+    </div>
+
+    <!-- =========================================================================
+         CHAPTER 6: FINALE (DOWNLOAD CTA & MOSQUE HORIZON)
+         ========================================================================= -->
+    <section id="download" class="chapter-section" style="padding-bottom: 2rem;">
+      <div class="container" style="text-align: center;">
+        <div style="max-width: 760px; margin: 0 auto 3rem;">
+          <div class="badge-pill">✦ Begin Today</div>
+          <h2 style="margin: 0.85rem 0 0.5rem;">Download Muslim Ultra Companion</h2>
+          <p class="lead">Available worldwide on iOS and Android with on-device astronomical accuracy and zero tracking.</p>
+        </div>
+
+        <!-- App Download Framed Banner Artwork -->
+        <div class="banner-wrapper" style="margin-bottom: 3.5rem;">
+          <img src="banners/app-download-banner.webp" alt="Muslim Ultra App Download Banner" class="banner-img" loading="lazy">
+        </div>
+
+        <!-- Layered 2D Parallax Mosque Silhouette (Navy-on-navy with gold rim highlight) -->
+        <div class="mosque-silhouette-container" aria-hidden="true">
+          <svg class="mosque-svg" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax meet">
+            <defs>
+              <linearGradient id="mosqueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#0E1E38" />
+                <stop offset="100%" stop-color="#030712" />
+              </linearGradient>
+            </defs>
+            <!-- Background Domes -->
+            <path d="M 0,240 L 0,180 Q 80,180 120,120 Q 160,180 240,180 L 240,240 Z" fill="#0A1628" opacity="0.6"/>
+            <path d="M 960,240 L 960,180 Q 1040,180 1080,120 Q 1120,180 1200,180 L 1200,240 Z" fill="#0A1628" opacity="0.6"/>
+            
+            <!-- Foreground Grand Central Mosque with Minarets -->
+            <!-- Left Minaret -->
+            <path d="M 320,240 L 320,50 L 335,20 L 350,50 L 350,240 Z" fill="url(#mosqueGrad)" stroke="rgba(212, 175, 55, 0.45)" stroke-width="1.5"/>
+            <circle cx="335" cy="18" r="4" fill="#FFE58F" />
+
+            <!-- Left Side Dome -->
+            <path d="M 350,240 L 350,150 Q 420,150 450,90 Q 480,150 550,150 L 550,240 Z" fill="url(#mosqueGrad)" stroke="rgba(212, 175, 55, 0.35)" stroke-width="1.2"/>
+
+            <!-- Main Grand Central Dome -->
+            <path d="M 520,240 L 520,130 Q 600,130 600,40 Q 600,130 680,130 L 680,240 Z" fill="url(#mosqueGrad)" stroke="rgba(212, 175, 55, 0.55)" stroke-width="1.8"/>
+            <circle cx="600" cy="38" r="5" fill="#FFE58F" />
+
+            <!-- Right Side Dome -->
+            <path d="M 650,240 L 650,150 Q 720,150 750,90 Q 780,150 850,150 L 850,240 Z" fill="url(#mosqueGrad)" stroke="rgba(212, 175, 55, 0.35)" stroke-width="1.2"/>
+
+            <!-- Right Minaret -->
+            <path d="M 850,240 L 850,50 L 865,20 L 880,50 L 880,240 Z" fill="url(#mosqueGrad)" stroke="rgba(212, 175, 55, 0.45)" stroke-width="1.5"/>
+            <circle cx="865" cy="18" r="4" fill="#FFE58F" />
+
+            <!-- Base Ground line -->
+            <line x1="0" y1="240" x2="1200" y2="240" stroke="rgba(212, 175, 55, 0.3)" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER (COSMIC MIDNIGHT WITH BRANDING & CRITICAL LINKS)
+       ========================================================================= -->
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -294,8 +421,20 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="hero-3d.js"></script>
-  <script src="main-effects.js"></script>
+  <!-- Engine Scripts -->
+  <script src="cosmos.js"></script>
+  <script src="journey.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.Cosmos) {
+        window.Cosmos.init('cosmos-viewport', {
+          density: 'high',
+          accent: 'crescent',
+          speed: 1.0,
+          interactive: true
+        });
+      }
+    });
+  </script>
 </body>
 </html>

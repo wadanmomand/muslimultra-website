@@ -411,6 +411,354 @@ p.lead {
   }
 }
 
+/* ==============================================================================
+   6-CHAPTER HOMEPAGE LAYOUT & CINEMATIC COMPONENTS
+   ============================================================================== */
+.chapter-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.chapter-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(5rem, 8vw, 7rem) 0;
+  z-index: 2;
+}
+
+.chapter-hero {
+  min-height: 100vh;
+  padding-top: 7rem;
+}
+
+.hero-scrim {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Chapter Transition Wipes (Subtle Islamic Geometry) */
+.chapter-divider {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+  margin: -30px 0;
+}
+
+.chapter-divider-pattern {
+  width: 160px;
+  height: 24px;
+  background-image: radial-gradient(circle, rgba(212, 175, 55, 0.35) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  position: relative;
+}
+
+.chapter-divider-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
+}
+
+/* Mosque Silhouette (Reverent layered navy-on-navy with gold rim highlight) */
+.mosque-silhouette-container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 2.5rem auto 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.mosque-svg {
+  width: 100%;
+  max-height: 220px;
+  fill: #060E1A;
+  stroke: rgba(212, 175, 55, 0.35);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 -5px 25px rgba(212, 175, 55, 0.15));
+}
+
+/* Screenshots Pedestal & Phones Carousel */
+.shots-pedestal {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.phones-carousel-track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.75rem;
+  margin-top: 3rem;
+  perspective: 1200px;
+}
+
+.phone-item {
+  width: 210px;
+  border-radius: 32px;
+  border: 2px solid var(--gold-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-primary);
+  text-align: center;
+  padding: 14px;
+  gap: 12px;
+  background: var(--midnight-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  will-change: transform;
+}
+
+.phone-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--gold-primary);
+  box-shadow: var(--shadow-card-hover), 0 0 25px rgba(212, 175, 55, 0.25);
+}
+
+.phone-item img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 20px;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.phone-item b {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  display: block;
+}
+
+.phone-item small {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  display: block;
+}
+
+/* Academy Spotlight Box */
+.academy-spotlight-box {
+  background: linear-gradient(145deg, rgba(12, 25, 48, 0.85) 0%, rgba(6, 14, 26, 0.95) 100%);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: var(--shadow-card), 0 0 40px rgba(212, 175, 55, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.academy-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-light);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.academy-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.academy-card-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+}
+
+.banner-wrapper {
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card), 0 0 45px rgba(212, 175, 55, 0.18);
+  border: 1px solid var(--gold-border);
+  transition: var(--transition);
+}
+
+.banner-wrapper:hover {
+  border-color: var(--gold-border-glow);
+  box-shadow: var(--shadow-card-hover), 0 0 60px rgba(212, 175, 55, 0.3);
+  transform: translateY(-3px);
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Privacy Nebula Banner */
+.privacy-banner {
+  background: linear-gradient(135deg, rgba(14, 28, 54, 0.9) 0%, rgba(6, 14, 26, 0.95) 100%);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  box-shadow: var(--shadow-card), 0 0 35px rgba(212, 175, 55, 0.1);
+}
+
+.privacy-banner-content h3 {
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+.privacy-banner-content p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.privacy-checklist {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.privacy-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.privacy-checklist .check {
+  color: var(--gold-light);
+  font-weight: 800;
+}
+
+/* Footer (Cosmic Midnight with Gold Branding) */
+footer {
+  background: rgba(3, 7, 18, 0.98);
+  border-top: 1px solid var(--gold-border);
+  padding: 4.5rem 0 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-brand p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-top: 1rem;
+  max-width: 340px;
+  line-height: 1.6;
+}
+
+.footer-col h4 {
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-display);
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-col ul li a {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  transition: var(--transition);
+}
+
+.footer-col ul li a:hover {
+  color: var(--gold-light);
+  padding-left: 4px;
+}
+
+.footer-bottom {
+  padding-top: 2.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.footer-admin-link {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.footer-admin-link:hover {
+  color: var(--gold-primary);
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .privacy-banner { flex-direction: column; text-align: center; }
+  .privacy-checklist { justify-content: center; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+
 /* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -420,3 +768,4 @@ p.lead {
     scroll-behavior: auto !important;
   }
 }
+
