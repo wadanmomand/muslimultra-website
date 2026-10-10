@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cosmos Engine M1 Demo — Muslim Ultra 3D v2</title>
-  <meta name="description" content="Muslim Ultra 3D Cosmos Engine v2 prototype: 4-chapter camera rail glide, cinematic-slow starfield, and glassmorphic celestial luxury.">
+  <meta name="description" content="Muslim Ultra 3D Cosmos Engine v2 prototype: 5-chapter camera rail glide, khatam 8-pointed star dust, glowing Quran accent, and glassmorphic celestial luxury.">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="theme.css">
 
   <style>
-    /* Demo Chapters Specific Styling */
     .chapter-section {
       position: relative;
       min-height: 100vh;
@@ -22,7 +21,7 @@
 
     .chapter-content {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
       text-align: center;
     }
@@ -119,7 +118,8 @@
         <li><a href="#chapter-1" class="active">I. Awakening</a></li>
         <li><a href="#chapter-2">II. Sanctuary</a></li>
         <li><a href="#chapter-3">III. Illumination</a></li>
-        <li><a href="#chapter-4">IV. Horizon</a></li>
+        <li><a href="#chapter-4">IV. Revelation</a></li>
+        <li><a href="#chapter-5">V. Horizon</a></li>
         <li><a href="academy.html#trial-booking" class="btn-cta">Book Free Trial ✦</a></li>
       </ul>
     </div>
@@ -213,17 +213,30 @@
             <p style="color: var(--text-secondary); font-size: 0.9rem;">Comprehensive daily memorization (Sabaq, Sabaqi, Manzil) with experienced Huffaz mentors.</p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div style="margin-top: 2rem;">
-          <a href="academy.html#trial-booking" class="btn-cta">Book 3-Day Free Trial ✦</a>
+    <!-- Chapter 4: The Revelation (Showcasing Accent 'quran') -->
+    <section id="chapter-4" class="chapter-section">
+      <div class="container chapter-content">
+        <div class="chapter-num">Chapter IV &bull; The Revelation</div>
+        <h2>Procedural Glowing <span class="gold-gradient">Holy Quran</span></h2>
+        <p class="lead">Showcasing the engine's 3D glowing open Quran accent with volumetric light rays, golden page borders, and floating sacred motes.</p>
+
+        <div class="chapter-grid" style="max-width: 720px; margin-left: auto; margin-right: auto;">
+          <div class="glass-card" style="text-align: center;">
+            <div class="badge-pill" style="margin-bottom: 0.75rem;">✦ Engine Feature</div>
+            <h3>Volumetric Light & Khatam Particles</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">Lightweight procedural 3D model designed specifically for the upcoming Academy chapter (M3) with zero external geometry downloads.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Chapter 4: The Horizon (Camera Rail Glide: Overview & Descent) -->
-    <section id="chapter-4" class="chapter-section">
+    <!-- Chapter 5: The Horizon (Camera Rail Glide: Overview & Descent) -->
+    <section id="chapter-5" class="chapter-section">
       <div class="container chapter-content">
-        <div class="chapter-num">Chapter IV &bull; The Horizon</div>
+        <div class="chapter-num">Chapter V &bull; The Horizon</div>
         <h2>Begin Your Spiritual Journey <span class="gold-gradient">Today</span></h2>
         <p class="lead">Experience the luxury companion app and elevate your connection to the Divine.</p>
 
@@ -242,14 +255,13 @@
   <!-- HUD Status Indicator -->
   <div class="demo-hud">
     <div class="hud-dot"></div>
-    <span>Cosmos 3D Rail: Active &bull; Cinematic Mode</span>
+    <span>Cosmos 3D Rail: Active &bull; Khatam Stars + Accent</span>
   </div>
 
   <!-- Engine Scripts -->
   <script src="cosmos.js"></script>
   <script src="journey.js"></script>
   <script>
-    // Initialize Cosmos 3D Engine on page load
     document.addEventListener('DOMContentLoaded', function () {
       if (window.Cosmos) {
         window.Cosmos.init('cosmos-viewport', {

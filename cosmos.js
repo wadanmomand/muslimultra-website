@@ -2,12 +2,14 @@
  * Muslim Ultra — Cosmos 3D Engine v2 (cosmos.js)
  * High-performance, cinematic-slow 3D celestial universe built with Three.js.
  * Features:
- *  - Procedural PBR golden crescent ('crescent')
- *  - Celestial glowing lantern ('lantern')
- *  - Pure cosmic stardust ('quiet')
- *  - 3D CatmullRom camera rail with smooth scroll progress (0..1)
+ *  - 8-pointed Islamic Star (Khatam / Rub el Hizb) geometric particles
+ *  - Procedural PBR Golden Crescent ('crescent')
+ *  - Stylized Celestial Glowing Lantern ('lantern')
+ *  - Procedural Glowing Open Quran with Volumetric Rays ('quran')
+ *  - Pure Cosmic Stardust ('quiet')
+ *  - Continuous 3D CatmullRom camera rail with smooth scroll progress (0..1)
  *  - Mouse parallax & mobile-first auto-degradation (<=40% particles on mobile)
- *  - No-WebGL & prefers-reduced-motion fallbacks
+ *  - WebGL fallback poster & prefers-reduced-motion static mode
  */
 
 (function (root, factory) {
@@ -31,7 +33,7 @@
     }
   }
 
-  // Create radial star point texture
+  // 1. Texture: Radial Star Point
   function createStarTexture() {
     const canvas = document.createElement('canvas');
     canvas.width = 64;
@@ -49,12 +51,57 @@
     return texture;
   }
 
-  // Create glowing procedural crescent geometry
+  // 2. Texture: 8-Pointed Islamic Star (Khatam / Rub el Hizb) Sprite
+  function createKhatamTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    const cx = 32;
+    const cy = 32;
+    const outerR = 26;
+    const innerR = 14;
+    const numPoints = 8;
+
+    ctx.clearRect(0, 0, 64, 64);
+
+    // Outer glow
+    const glow = ctx.createRadialGradient(cx, cy, 4, cx, cy, 30);
+    glow.addColorStop(0, 'rgba(255, 235, 160, 0.9)');
+    glow.addColorStop(0.4, 'rgba(212, 175, 55, 0.5)');
+    glow.addColorStop(1, 'rgba(3, 7, 18, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, 64, 64);
+
+    // Draw 8-pointed geometric star
+    ctx.beginPath();
+    for (let i = 0; i < numPoints * 2; i++) {
+      const radius = i % 2 === 0 ? outerR : innerR;
+      const angle = (i * Math.PI) / numPoints - Math.PI / 2;
+      const x = cx + Math.cos(angle) * radius;
+      const y = cy + Math.sin(angle) * radius;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+
+    ctx.fillStyle = '#FFE58F';
+    ctx.fill();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.stroke();
+
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  // 3. Procedural Golden Crescent Moon Geometry
   function createCrescentGeometry() {
     const shape = new THREE.Shape();
     const R = 6.0;
     const r = 5.2;
-    const d = 2.3; // inner offset
+    const d = 2.3;
     const segments = 48;
 
     const startAngle = -Math.PI * 0.72;
@@ -85,11 +132,10 @@
     });
   }
 
-  // Create 3D stylized celestial lantern
+  // 4. Procedural Stylized Celestial Lantern
   function createLanternGroup() {
     const group = new THREE.Group();
 
-    // Gold frame material
     const goldMat = new THREE.MeshStandardMaterial({
       color: 0xd4af37,
       metalness: 0.85,
@@ -98,41 +144,166 @@
       emissiveIntensity: 0.4
     });
 
-    // Warm glowing core material
     const coreMat = new THREE.MeshBasicMaterial({
       color: 0xffe58f,
       transparent: true,
       opacity: 0.95
     });
 
-    // Lantern top cap
+    // Top cap
     const topGeom = new THREE.ConeGeometry(2.4, 2.0, 6);
     const topMesh = new THREE.Mesh(topGeom, goldMat);
     topMesh.position.y = 3.6;
     group.add(topMesh);
 
-    // Lantern ring hook
+    // Ring hook
     const ringGeom = new THREE.TorusGeometry(0.8, 0.12, 12, 24);
     const ringMesh = new THREE.Mesh(ringGeom, goldMat);
     ringMesh.position.y = 5.0;
     group.add(ringMesh);
 
-    // Lantern central glowing core
+    // Central glowing core
     const coreGeom = new THREE.CylinderGeometry(1.4, 1.8, 4.2, 6);
     const coreMesh = new THREE.Mesh(coreGeom, coreMat);
     coreMesh.position.y = 1.0;
     group.add(coreMesh);
 
-    // Lantern bottom base
+    // Bottom base
     const baseGeom = new THREE.CylinderGeometry(1.9, 1.3, 1.2, 6);
     const baseMesh = new THREE.Mesh(baseGeom, goldMat);
     baseMesh.position.y = -1.6;
     group.add(baseMesh);
 
-    // Light source inside lantern
+    // Internal light
     const lanternLight = new THREE.PointLight(0xffdf73, 4.0, 30, 1.5);
     lanternLight.position.y = 1.0;
     group.add(lanternLight);
+
+    group.scale.set(0.9, 0.9, 0.9);
+    return group;
+  }
+
+  // 5. Procedural Glowing Open Quran ('quran')
+  function createQuranGroup() {
+    const group = new THREE.Group();
+
+    // Material: Warm luminous parchment pages with gold edge trim
+    const pageMat = new THREE.MeshStandardMaterial({
+      color: 0xfff6de,
+      roughness: 0.35,
+      metalness: 0.15,
+      emissive: 0xffdf73,
+      emissiveIntensity: 0.45,
+      side: THREE.DoubleSide
+    });
+
+    // Material: Midnight navy leather binding with gold spine
+    const coverMat = new THREE.MeshStandardMaterial({
+      color: 0x0a1628,
+      roughness: 0.3,
+      metalness: 0.8,
+      emissive: 0x14233c,
+      emissiveIntensity: 0.2
+    });
+
+    const goldTrimMat = new THREE.MeshStandardMaterial({
+      color: 0xd4af37,
+      metalness: 0.9,
+      roughness: 0.2
+    });
+
+    // Left curved page block
+    const leftPageGeom = new THREE.BoxGeometry(4.2, 0.5, 6.0, 8, 2, 8);
+    // Displace vertices to create gentle page curve
+    const pos = leftPageGeom.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i);
+      const curve = Math.sin((x / 4.2) * Math.PI * 0.5) * 0.45;
+      pos.setY(i, pos.getY(i) + curve);
+    }
+    leftPageGeom.computeVertexNormals();
+
+    const leftPage = new THREE.Mesh(leftPageGeom, pageMat);
+    leftPage.position.set(-2.2, 0.3, 0);
+    leftPage.rotation.z = 0.22;
+    group.add(leftPage);
+
+    // Right curved page block (mirrored)
+    const rightPageGeom = leftPageGeom.clone();
+    const rpos = rightPageGeom.attributes.position;
+    for (let i = 0; i < rpos.count; i++) {
+      const x = rpos.getX(i);
+      const curve = Math.sin((-x / 4.2) * Math.PI * 0.5) * 0.45;
+      rpos.setY(i, rpos.getY(i) + curve);
+    }
+    rightPageGeom.computeVertexNormals();
+
+    const rightPage = new THREE.Mesh(rightPageGeom, pageMat);
+    rightPage.position.set(2.2, 0.3, 0);
+    rightPage.rotation.z = -0.22;
+    group.add(rightPage);
+
+    // Bottom Binding Cover (Hardback)
+    const coverGeom = new THREE.BoxGeometry(9.2, 0.3, 6.4);
+    const coverMesh = new THREE.Mesh(coverGeom, coverMat);
+    coverMesh.position.set(0, -0.2, 0);
+    group.add(coverMesh);
+
+    // Traditional wooden / gilded Rahl (X-Stand)
+    const leg1Geom = new THREE.BoxGeometry(0.5, 5.5, 6.2);
+    const leg1 = new THREE.Mesh(leg1Geom, goldTrimMat);
+    leg1.position.set(0, -2.4, 0);
+    leg1.rotation.z = 0.55;
+    group.add(leg1);
+
+    const leg2Geom = new THREE.BoxGeometry(0.5, 5.5, 6.2);
+    const leg2 = new THREE.Mesh(leg2Geom, goldTrimMat);
+    leg2.position.set(0, -2.4, 0);
+    leg2.rotation.z = -0.55;
+    group.add(leg2);
+
+    // Volumetric Warm Light Cone rising from the open Quran
+    const lightConeGeom = new THREE.ConeGeometry(5.5, 14.0, 32, 1, true);
+    const lightConeMat = new THREE.MeshBasicMaterial({
+      color: 0xffe58f,
+      transparent: true,
+      opacity: 0.22,
+      side: THREE.DoubleSide,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const lightCone = new THREE.Mesh(lightConeGeom, lightConeMat);
+    lightCone.position.set(0, 7.0, 0);
+    lightCone.rotation.x = Math.PI; // Opening upwards
+    group.add(lightCone);
+
+    // Point Light source on the book
+    const quranLight = new THREE.PointLight(0xffdf73, 4.5, 35, 1.2);
+    quranLight.position.set(0, 2.0, 0);
+    group.add(quranLight);
+
+    // Floating Light Motes (levitating upward from pages)
+    const moteCount = 18;
+    const moteGeo = new THREE.BufferGeometry();
+    const motePos = new Float32Array(moteCount * 3);
+    for (let i = 0; i < moteCount; i++) {
+      const i3 = i * 3;
+      motePos[i3] = (Math.random() - 0.5) * 5;
+      motePos[i3 + 1] = Math.random() * 8 + 0.5;
+      motePos[i3 + 2] = (Math.random() - 0.5) * 5;
+    }
+    moteGeo.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
+    const moteMat = new THREE.PointsMaterial({
+      size: 1.6,
+      color: 0xffdf73,
+      transparent: true,
+      opacity: 0.9,
+      map: createStarTexture(),
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const motes = new THREE.Points(moteGeo, moteMat);
+    group.add(motes);
 
     group.scale.set(0.9, 0.9, 0.9);
     return group;
@@ -163,24 +334,25 @@
       }
 
       const opts = Object.assign({
-        density: 'medium', // 'high', 'medium', 'low' or number
-        accent: 'crescent', // 'crescent', 'lantern', 'quiet'
-        speed: 1.0,         // cinematic-slow base speed multiplier
+        density: 'medium',   // 'high', 'medium', 'low' or number
+        accent: 'crescent',   // 'crescent', 'lantern', 'quran', 'quiet'
+        speed: 1.0,           // cinematic-slow pace
         interactive: true
       }, options || {});
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const isMobile = window.innerWidth < 768;
 
-      // Determine particle count (Mobile-first: <= 40% of desktop)
-      let baseParticles = 1400;
-      if (opts.density === 'high') baseParticles = 2000;
-      else if (opts.density === 'low') baseParticles = 700;
-      else if (typeof opts.density === 'number') baseParticles = opts.density;
+      // Mobile-first particle scaling (<= 40% on mobile)
+      let baseStars = 1400;
+      let baseKhatam = 70;
+      if (opts.density === 'high') { baseStars = 2000; baseKhatam = 100; }
+      else if (opts.density === 'low') { baseStars = 700; baseKhatam = 40; }
+      else if (typeof opts.density === 'number') { baseStars = opts.density; baseKhatam = Math.floor(opts.density * 0.05); }
 
-      const particleCount = isMobile ? Math.floor(baseParticles * 0.35) : baseParticles;
+      const starCount = isMobile ? Math.floor(baseStars * 0.35) : baseStars;
+      const khatamCount = isMobile ? Math.floor(baseKhatam * 0.4) : baseKhatam;
 
-      // Scene, Camera, Renderer
       const width = container.clientWidth || window.innerWidth;
       const height = container.clientHeight || window.innerHeight;
 
@@ -198,11 +370,11 @@
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.2;
+      renderer.toneMappingExposure = 1.25;
       container.appendChild(renderer.domElement);
 
       // Lighting
-      const ambientLight = new THREE.AmbientLight(0x111c2e, 2.0);
+      const ambientLight = new THREE.AmbientLight(0x111c2e, 2.2);
       scene.add(ambientLight);
 
       const keyGoldLight = new THREE.DirectionalLight(0xffdf73, 2.8);
@@ -213,25 +385,25 @@
       rimBlueLight.position.set(-25, -15, -15);
       scene.add(rimBlueLight);
 
-      // 1. Starfield Particles
+      // 1. Cosmic Starfield
       const starGeo = new THREE.BufferGeometry();
-      const starPositions = new Float32Array(particleCount * 3);
-      const starColors = new Float32Array(particleCount * 3);
-      const starSizes = new Float32Array(particleCount);
+      const starPositions = new Float32Array(starCount * 3);
+      const starColors = new Float32Array(starCount * 3);
+      const starSizes = new Float32Array(starCount);
 
       const palette = [
-        new THREE.Color(0xffdf73), // Gold
-        new THREE.Color(0xd4af37), // Celestial Gold
-        new THREE.Color(0xffffff), // Pure White
-        new THREE.Color(0x7eb6ff), // Sky Blue
-        new THREE.Color(0xf5e6a3)  // Warm Sand
+        new THREE.Color(0xffdf73),
+        new THREE.Color(0xd4af37),
+        new THREE.Color(0xffffff),
+        new THREE.Color(0x7eb6ff),
+        new THREE.Color(0xf5e6a3)
       ];
 
-      for (let i = 0; i < particleCount; i++) {
+      for (let i = 0; i < starCount; i++) {
         const i3 = i * 3;
-        starPositions[i3] = (Math.random() - 0.5) * 140;
-        starPositions[i3 + 1] = (Math.random() - 0.5) * 100;
-        starPositions[i3 + 2] = (Math.random() - 0.5) * 80;
+        starPositions[i3] = (Math.random() - 0.5) * 150;
+        starPositions[i3 + 1] = (Math.random() - 0.5) * 110;
+        starPositions[i3 + 2] = (Math.random() - 0.5) * 90;
 
         const col = palette[Math.floor(Math.random() * palette.length)];
         starColors[i3] = col.r;
@@ -245,13 +417,12 @@
       starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
       starGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
 
-      const starTexture = createStarTexture();
       const starMaterial = new THREE.PointsMaterial({
         size: 0.9,
         vertexColors: true,
         transparent: true,
         opacity: 0.85,
-        map: starTexture,
+        map: createStarTexture(),
         blending: THREE.AdditiveBlending,
         depthWrite: false
       });
@@ -259,7 +430,31 @@
       const starPoints = new THREE.Points(starGeo, starMaterial);
       scene.add(starPoints);
 
-      // 2. Accent Object (Crescent, Lantern, or Quiet)
+      // 2. 8-Pointed Star (Khatam) Geometric Particles
+      const khatamGeo = new THREE.BufferGeometry();
+      const khatamPositions = new Float32Array(khatamCount * 3);
+      for (let i = 0; i < khatamCount; i++) {
+        const i3 = i * 3;
+        khatamPositions[i3] = (Math.random() - 0.5) * 100;
+        khatamPositions[i3 + 1] = (Math.random() - 0.5) * 70;
+        khatamPositions[i3 + 2] = (Math.random() - 0.5) * 60;
+      }
+      khatamGeo.setAttribute('position', new THREE.BufferAttribute(khatamPositions, 3));
+
+      const khatamMat = new THREE.PointsMaterial({
+        size: isMobile ? 2.4 : 3.6,
+        color: 0xffdf73,
+        transparent: true,
+        opacity: 0.88,
+        map: createKhatamTexture(),
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+
+      const khatamPoints = new THREE.Points(khatamGeo, khatamMat);
+      scene.add(khatamPoints);
+
+      // 3. Accent Object
       const accentGroup = new THREE.Group();
       scene.add(accentGroup);
 
@@ -282,31 +477,38 @@
         accentMesh = createLanternGroup();
         accentMesh.position.set(isMobile ? 0 : 10, isMobile ? 2 : 1.5, 2);
         accentGroup.add(accentMesh);
+      } else if (opts.accent === 'quran') {
+        accentMesh = createQuranGroup();
+        accentMesh.position.set(isMobile ? 0 : 10, isMobile ? 1.5 : 1.0, 0);
+        accentMesh.rotation.set(0.35, -0.25, 0.1);
+        accentGroup.add(accentMesh);
       }
 
-      // 3. 3D Camera Rail (CatmullRom Curve) for Smooth Scroll-Driven Glide
+      // 4. Smooth 3D Camera Rail (6-Stage continuous flight)
       const railPoints = [
-        new THREE.Vector3(0, 0, 36),     // Chapter 1: Initial Hero View
-        new THREE.Vector3(6, -3, 28),    // Chapter 2: Glide Right & Down
-        new THREE.Vector3(-6, 3, 22),    // Chapter 3: Sweep Left & Up
-        new THREE.Vector3(0, -6, 16)     // Chapter 4: Gentle Final Overview
+        new THREE.Vector3(0, 0, 36),     // 0.0: Ignition (Hero)
+        new THREE.Vector3(7, -2, 30),    // 0.2: Academy Constellation
+        new THREE.Vector3(-6, 3, 24),    // 0.4: Features Orbit
+        new THREE.Vector3(5, -4, 20),    // 0.6: Screenshots Pedestal
+        new THREE.Vector3(-5, 2, 18),    // 0.8: Privacy Nebula
+        new THREE.Vector3(0, -6, 14)     // 1.0: Finale (Mosque Horizon & Download)
       ];
 
       const lookAtPoints = [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(2, -1, 0),
-        new THREE.Vector3(-1, 1, 0),
-        new THREE.Vector3(0, -2, -10)
+        new THREE.Vector3(2, -0.5, 0),
+        new THREE.Vector3(-1.5, 1, 0),
+        new THREE.Vector3(1.5, -1, 0),
+        new THREE.Vector3(-1, 0.5, -5),
+        new THREE.Vector3(0, -2, -12)
       ];
 
       const railCurve = new THREE.CatmullRomCurve3(railPoints);
       const lookAtCurve = new THREE.CatmullRomCurve3(lookAtPoints);
 
-      // Initial Camera Position
       camera.position.copy(railCurve.getPointAt(0));
       camera.lookAt(lookAtCurve.getPointAt(0));
 
-      // State tracker
       state = {
         container,
         scene,
@@ -314,6 +516,7 @@
         renderer,
         opts,
         starPoints,
+        khatamPoints,
         accentGroup,
         accentMesh,
         railCurve,
@@ -330,7 +533,6 @@
         clock: new THREE.Clock()
       };
 
-      // Mouse Parallax Listener
       if (opts.interactive && !prefersReducedMotion) {
         state.onMouseMove = function (e) {
           state.mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -339,7 +541,6 @@
         window.addEventListener('mousemove', state.onMouseMove, { passive: true });
       }
 
-      // Resize Listener
       state.onResize = function () {
         if (!state) return;
         const w = state.container.clientWidth || window.innerWidth;
@@ -370,16 +571,14 @@
 
         const dt = state.clock.getDelta();
         const elapsed = state.clock.getElapsedTime();
-        const speed = (state.opts.speed || 1.0) * 0.4; // Controlled slow cinematic pace
+        const speed = (state.opts.speed || 1.0) * 0.35; // Cinematic-slow
 
-        // 1. Smoothly interpolate scroll rail progress
         state.progress += (state.targetProgress - state.progress) * 0.08;
         const clampedP = Math.max(0, Math.min(1, state.progress));
 
         const baseCamPos = state.railCurve.getPointAt(clampedP);
         const baseLookAt = state.lookAtCurve.getPointAt(clampedP);
 
-        // 2. Mouse Parallax interpolation
         if (!state.prefersReducedMotion) {
           state.targetMouseX += (state.mouseX - state.targetMouseX) * 0.05;
           state.targetMouseY += (state.mouseY - state.targetMouseY) * 0.05;
@@ -398,10 +597,13 @@
           }
 
           // Gentle starfield drift
-          state.starPoints.rotation.y = elapsed * 0.008;
-          state.starPoints.rotation.x = Math.sin(elapsed * 0.005) * 0.015;
+          state.starPoints.rotation.y = elapsed * 0.006;
+          state.starPoints.rotation.x = Math.sin(elapsed * 0.004) * 0.012;
+
+          // Khatam 8-pointed star slow geometric rotation & drift
+          state.khatamPoints.rotation.y = -elapsed * 0.009;
+          state.khatamPoints.rotation.z = Math.sin(elapsed * 0.006) * 0.015;
         } else {
-          // Static frame for reduced motion
           state.camera.position.copy(baseCamPos);
           state.camera.lookAt(baseLookAt);
         }
