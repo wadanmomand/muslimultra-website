@@ -8,12 +8,19 @@
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
+  <!-- 3D & Animation Engines (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
+
+  <!-- Mobile Drawer Backdrop -->
+  <div class="mobile-backdrop"></div>
 
   <!-- Navbar -->
   <header class="navbar">
@@ -38,11 +45,14 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- 3D Hero Section -->
   <section class="hero">
-    <div class="container">
+    <!-- Three.js 3D Cosmic Background Canvas Container -->
+    <div id="hero-canvas-container" aria-hidden="true"></div>
+
+    <div class="container hero-content">
       <div class="badge-pill">🛡️ Strict Privacy-First Islamic Ecosystem</div>
-      <h1>Elevate Your Spiritual Journey With <span class="gold">Muslim Ultra</span></h1>
+      <h1>Elevate Your Spiritual Journey With <span class="gold-gradient">Muslim Ultra</span></h1>
       <p class="lead">The luxury Islamic companion combining astronomical precision prayer times, authentic Tanzil Quran reader, tilt-compensated Qibla compass, citation-backed Muslim AI, and certified 1-on-1 Online Quran Academy.</p>
       
       <div class="hero-actions">
@@ -51,7 +61,7 @@
       </div>
 
       <!-- Hero Visual Highlight / Metric Cards -->
-      <div class="grid-3" style="margin-top: 2rem;">
+      <div class="grid-3" style="margin-top: 2.5rem;">
         <div class="card" style="text-align: left;">
           <div class="card-icon">🕌</div>
           <h3>100% On-Device GPS</h3>
@@ -80,26 +90,26 @@
       <div class="academy-spotlight-box">
         <div style="text-align: center; max-width: 760px; margin: 0 auto 2.5rem;">
           <div class="academy-badge-tag">🎓 Certified Live 1-on-1 Tutoring</div>
-          <h2 style="font-size: 2.2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem;">Muslim Ultra Online Quran Academy</h2>
+          <h2 style="font-size: 2.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem;">Muslim Ultra Online Quran Academy</h2>
           <p style="color: var(--text-secondary); font-size: 1.05rem;">Personalized live one-on-one sessions for kids, sisters, and brothers worldwide with verified Al-Azhar and Ijazah-holding teachers.</p>
         </div>
 
-        <!-- Academy Banner -->
-        <div class="banner-wrapper" style="margin-bottom: 2.5rem;">
+        <!-- Academy Banner Artwork -->
+        <div class="banner-wrapper" style="margin-bottom: 3rem;">
           <img src="banners/academy-banner.webp" alt="Muslim Ultra Academy Banner" class="banner-img" loading="lazy">
         </div>
 
-        <div class="grid-3" style="margin-bottom: 2.5rem;">
+        <div class="grid-3" style="margin-bottom: 2.75rem;">
           <div class="academy-card">
             <div>
               <div class="academy-card-top">
                 <span style="font-size: 1.5rem;">👶</span>
                 <span class="academy-card-price">Starting $35/mo</span>
               </div>
-              <h3 style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Noorani Qaida for Kids</h3>
-              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Noorani Qaida for Kids</h3>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.55;">Fun, interactive phonetics and Arabic letters pronunciation foundation starting from age 4+.</p>
             </div>
-            <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 600;">
+            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
               ✓ 30 mins / 3 days a week • 1-on-1 Live
             </div>
           </div>
@@ -110,10 +120,10 @@
                 <span style="font-size: 1.5rem;">🎙️</span>
                 <span class="academy-card-price">Starting $45/mo</span>
               </div>
-              <h3 style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Tajweed & Tarteel Mastery</h3>
-              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Tajweed & Tarteel Mastery</h3>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.55;">Live vocal correction and rule applications (Makharij, Ghunnah, Madd, Ikhfa) for adults & sisters.</p>
             </div>
-            <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 600;">
+            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
               ✓ Dedicated Female Tutors Available
             </div>
           </div>
@@ -124,20 +134,20 @@
                 <span style="font-size: 1.5rem;">🧠</span>
                 <span class="academy-card-price">Starting $65/mo</span>
               </div>
-              <h3 style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Hifz-ul-Quran Memorization</h3>
-              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Custom daily revision (Sabaq, Sabaqi, Manzil) guided by experienced Huffaz mentors.</p>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Hifz-ul-Quran Memorization</h3>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.55;">Custom daily revision (Sabaq, Sabaqi, Manzil) guided by experienced Huffaz mentors.</p>
             </div>
-            <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--gold-light); font-weight: 600;">
+            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--gold-light); font-weight: 600;">
               ✓ 45 mins / 5 days a week • Personalized Schedule
             </div>
           </div>
         </div>
 
-        <div style="text-align: center; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <a href="academy.html" class="btn-cta" style="padding: 0.85rem 2rem; font-size: 1rem;">
+        <div style="text-align: center; display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap;">
+          <a href="academy.html" class="btn-cta" style="padding: 0.85rem 2.2rem; font-size: 1rem;">
             Visit Full Academy & View Instructors &rarr;
           </a>
-          <a href="academy.html#trial-booking" class="btn-secondary" style="padding: 0.85rem 1.8rem; font-size: 1rem;">
+          <a href="academy.html#trial-booking" class="btn-secondary" style="padding: 0.85rem 2rem; font-size: 1rem;">
             Book 3-Day Free Trial ✦
           </a>
         </div>
@@ -215,13 +225,12 @@
         </div>
       </div>
 
-      <!-- App Download Banner -->
-      <div class="banner-wrapper" style="margin-top: 3rem;">
+      <!-- App Download Banner CTA -->
+      <div class="banner-wrapper" style="margin-top: 3.5rem;">
         <img src="banners/app-download-banner.webp" alt="Muslim Ultra App Download Banner" class="banner-img" loading="lazy">
       </div>
     </div>
   </section>
-
 
   <!-- Screenshots Section -->
   <section class="shots" id="screenshots">
@@ -274,7 +283,8 @@
         <div class="footer-col">
           <h4>Connect</h4>
           <ul>
-            <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>          </ul>
+            <li><a href="mailto:supportmuslimultra@gmail.com">supportmuslimultra@gmail.com</a></li>
+          </ul>
         </div>
       </div>
       <div class="footer-bottom">
@@ -284,5 +294,8 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="hero-3d.js"></script>
+  <script src="main-effects.js"></script>
 </body>
 </html>
