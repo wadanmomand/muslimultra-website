@@ -220,9 +220,11 @@ a { color: inherit; text-decoration: none; }
 
 /* Hero Section */
 .hero {
-  padding: 5.5rem 0 4rem;
+  padding: 6rem 0 5rem;
   text-align: center;
   position: relative;
+  background: linear-gradient(180deg, rgba(6, 14, 26, 0.78) 0%, rgba(6, 14, 26, 0.92) 75%, var(--midnight-dark) 100%), url('banners/hero-banner.webp') center top / cover no-repeat;
+  border-bottom: 1px solid var(--midnight-border);
 }
 
 .hero h1 {
