@@ -768,7 +768,7 @@ footer {
 .revelation-frame {
   position: relative;
   max-width: 840px;
-  margin: 2.75rem auto 3.5rem;
+  margin: 2rem auto 2.25rem;
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--gold-border);
