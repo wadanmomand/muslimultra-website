@@ -5,7 +5,7 @@
  *  - 8-pointed Islamic Star (Khatam / Rub el Hizb) geometric particles
  *  - Procedural PBR Golden Crescent ('crescent')
  *  - Stylized Celestial Glowing Lantern ('lantern')
- *  - Procedural Glowing Open Quran with Volumetric Rays ('quran')
+ *  - Rising Sacred Golden Motes ('quran')
  *  - Pure Cosmic Stardust ('quiet')
  *  - Continuous 3D CatmullRom camera rail with smooth scroll progress (0..1)
  *  - Mouse parallax & mobile-first auto-degradation (<=40% particles on mobile)
@@ -150,31 +150,26 @@
       opacity: 0.95
     });
 
-    // Top cap
     const topGeom = new THREE.ConeGeometry(2.4, 2.0, 6);
     const topMesh = new THREE.Mesh(topGeom, goldMat);
     topMesh.position.y = 3.6;
     group.add(topMesh);
 
-    // Ring hook
     const ringGeom = new THREE.TorusGeometry(0.8, 0.12, 12, 24);
     const ringMesh = new THREE.Mesh(ringGeom, goldMat);
     ringMesh.position.y = 5.0;
     group.add(ringMesh);
 
-    // Central glowing core
     const coreGeom = new THREE.CylinderGeometry(1.4, 1.8, 4.2, 6);
     const coreMesh = new THREE.Mesh(coreGeom, coreMat);
     coreMesh.position.y = 1.0;
     group.add(coreMesh);
 
-    // Bottom base
     const baseGeom = new THREE.CylinderGeometry(1.9, 1.3, 1.2, 6);
     const baseMesh = new THREE.Mesh(baseGeom, goldMat);
     baseMesh.position.y = -1.6;
     group.add(baseMesh);
 
-    // Internal light
     const lanternLight = new THREE.PointLight(0xffdf73, 4.0, 30, 1.5);
     lanternLight.position.y = 1.0;
     group.add(lanternLight);
@@ -183,118 +178,23 @@
     return group;
   }
 
-  // 5. Procedural Glowing Open Quran ('quran')
-  function createQuranGroup() {
+  // 5. Rising Sacred Golden Light Motes ('quran' accent mode)
+  function createRisingMotesGroup() {
     const group = new THREE.Group();
-
-    // Material: Warm luminous parchment pages with gold edge trim
-    const pageMat = new THREE.MeshStandardMaterial({
-      color: 0xfff6de,
-      roughness: 0.35,
-      metalness: 0.15,
-      emissive: 0xffdf73,
-      emissiveIntensity: 0.45,
-      side: THREE.DoubleSide
-    });
-
-    // Material: Midnight navy leather binding with gold spine
-    const coverMat = new THREE.MeshStandardMaterial({
-      color: 0x0a1628,
-      roughness: 0.3,
-      metalness: 0.8,
-      emissive: 0x14233c,
-      emissiveIntensity: 0.2
-    });
-
-    const goldTrimMat = new THREE.MeshStandardMaterial({
-      color: 0xd4af37,
-      metalness: 0.9,
-      roughness: 0.2
-    });
-
-    // Left curved page block
-    const leftPageGeom = new THREE.BoxGeometry(4.2, 0.5, 6.0, 8, 2, 8);
-    // Displace vertices to create gentle page curve
-    const pos = leftPageGeom.attributes.position;
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i);
-      const curve = Math.sin((x / 4.2) * Math.PI * 0.5) * 0.45;
-      pos.setY(i, pos.getY(i) + curve);
-    }
-    leftPageGeom.computeVertexNormals();
-
-    const leftPage = new THREE.Mesh(leftPageGeom, pageMat);
-    leftPage.position.set(-2.2, 0.3, 0);
-    leftPage.rotation.z = 0.22;
-    group.add(leftPage);
-
-    // Right curved page block (mirrored)
-    const rightPageGeom = leftPageGeom.clone();
-    const rpos = rightPageGeom.attributes.position;
-    for (let i = 0; i < rpos.count; i++) {
-      const x = rpos.getX(i);
-      const curve = Math.sin((-x / 4.2) * Math.PI * 0.5) * 0.45;
-      rpos.setY(i, rpos.getY(i) + curve);
-    }
-    rightPageGeom.computeVertexNormals();
-
-    const rightPage = new THREE.Mesh(rightPageGeom, pageMat);
-    rightPage.position.set(2.2, 0.3, 0);
-    rightPage.rotation.z = -0.22;
-    group.add(rightPage);
-
-    // Bottom Binding Cover (Hardback)
-    const coverGeom = new THREE.BoxGeometry(9.2, 0.3, 6.4);
-    const coverMesh = new THREE.Mesh(coverGeom, coverMat);
-    coverMesh.position.set(0, -0.2, 0);
-    group.add(coverMesh);
-
-    // Traditional wooden / gilded Rahl (X-Stand)
-    const leg1Geom = new THREE.BoxGeometry(0.5, 5.5, 6.2);
-    const leg1 = new THREE.Mesh(leg1Geom, goldTrimMat);
-    leg1.position.set(0, -2.4, 0);
-    leg1.rotation.z = 0.55;
-    group.add(leg1);
-
-    const leg2Geom = new THREE.BoxGeometry(0.5, 5.5, 6.2);
-    const leg2 = new THREE.Mesh(leg2Geom, goldTrimMat);
-    leg2.position.set(0, -2.4, 0);
-    leg2.rotation.z = -0.55;
-    group.add(leg2);
-
-    // Volumetric Warm Light Cone rising from the open Quran
-    const lightConeGeom = new THREE.ConeGeometry(5.5, 14.0, 32, 1, true);
-    const lightConeMat = new THREE.MeshBasicMaterial({
-      color: 0xffe58f,
-      transparent: true,
-      opacity: 0.22,
-      side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const lightCone = new THREE.Mesh(lightConeGeom, lightConeMat);
-    lightCone.position.set(0, 7.0, 0);
-    lightCone.rotation.x = Math.PI; // Opening upwards
-    group.add(lightCone);
-
-    // Point Light source on the book
-    const quranLight = new THREE.PointLight(0xffdf73, 4.5, 35, 1.2);
-    quranLight.position.set(0, 2.0, 0);
-    group.add(quranLight);
-
-    // Floating Light Motes (levitating upward from pages)
-    const moteCount = 18;
+    const moteCount = 36;
     const moteGeo = new THREE.BufferGeometry();
     const motePos = new Float32Array(moteCount * 3);
+
     for (let i = 0; i < moteCount; i++) {
       const i3 = i * 3;
-      motePos[i3] = (Math.random() - 0.5) * 5;
-      motePos[i3 + 1] = Math.random() * 8 + 0.5;
-      motePos[i3 + 2] = (Math.random() - 0.5) * 5;
+      motePos[i3] = (Math.random() - 0.5) * 16;
+      motePos[i3 + 1] = (Math.random() - 0.5) * 20;
+      motePos[i3 + 2] = (Math.random() - 0.5) * 12;
     }
     moteGeo.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
+
     const moteMat = new THREE.PointsMaterial({
-      size: 1.6,
+      size: 2.2,
       color: 0xffdf73,
       transparent: true,
       opacity: 0.9,
@@ -302,10 +202,14 @@
       blending: THREE.AdditiveBlending,
       depthWrite: false
     });
+
     const motes = new THREE.Points(moteGeo, moteMat);
     group.add(motes);
 
-    group.scale.set(0.9, 0.9, 0.9);
+    const warmLight = new THREE.PointLight(0xffdf73, 3.5, 40, 1.2);
+    warmLight.position.set(0, 4, 2);
+    group.add(warmLight);
+
     return group;
   }
 
@@ -478,20 +382,19 @@
         accentMesh.position.set(isMobile ? 0 : 10, isMobile ? 2 : 1.5, 2);
         accentGroup.add(accentMesh);
       } else if (opts.accent === 'quran') {
-        accentMesh = createQuranGroup();
-        accentMesh.position.set(isMobile ? 0 : 10, isMobile ? 1.5 : 1.0, 0);
-        accentMesh.rotation.set(0.35, -0.25, 0.1);
+        accentMesh = createRisingMotesGroup();
+        accentMesh.position.set(isMobile ? 0 : 8, isMobile ? 2 : 1, 0);
         accentGroup.add(accentMesh);
       }
 
-      // 4. Smooth 3D Camera Rail (6-Stage continuous flight)
+      // 4. Smooth 3D Camera Rail
       const railPoints = [
-        new THREE.Vector3(0, 0, 36),     // 0.0: Ignition (Hero)
-        new THREE.Vector3(7, -2, 30),    // 0.2: Academy Constellation
-        new THREE.Vector3(-6, 3, 24),    // 0.4: Features Orbit
-        new THREE.Vector3(5, -4, 20),    // 0.6: Screenshots Pedestal
-        new THREE.Vector3(-5, 2, 18),    // 0.8: Privacy Nebula
-        new THREE.Vector3(0, -6, 14)     // 1.0: Finale (Mosque Horizon & Download)
+        new THREE.Vector3(0, 0, 36),
+        new THREE.Vector3(7, -2, 30),
+        new THREE.Vector3(-6, 3, 24),
+        new THREE.Vector3(5, -4, 20),
+        new THREE.Vector3(-5, 2, 18),
+        new THREE.Vector3(0, -6, 14)
       ];
 
       const lookAtPoints = [
@@ -562,7 +465,7 @@
       };
       window.addEventListener('resize', state.onResize, { passive: true });
 
-      // Render Loop (Cinematic-slow)
+      // Render Loop
       function render() {
         if (!state) return;
         state.animId = requestAnimationFrame(render);
@@ -571,7 +474,7 @@
 
         const dt = state.clock.getDelta();
         const elapsed = state.clock.getElapsedTime();
-        const speed = (state.opts.speed || 1.0) * 0.35; // Cinematic-slow
+        const speed = (state.opts.speed || 1.0) * 0.35;
 
         state.progress += (state.targetProgress - state.progress) * 0.08;
         const clampedP = Math.max(0, Math.min(1, state.progress));
@@ -596,11 +499,11 @@
             state.accentMesh.position.y += Math.sin(elapsed * speed * 1.5) * 0.008;
           }
 
-          // Gentle starfield drift
+          // Starfield drift
           state.starPoints.rotation.y = elapsed * 0.006;
           state.starPoints.rotation.x = Math.sin(elapsed * 0.004) * 0.012;
 
-          // Khatam 8-pointed star slow geometric rotation & drift
+          // Khatam 8-pointed star rotation
           state.khatamPoints.rotation.y = -elapsed * 0.009;
           state.khatamPoints.rotation.z = Math.sin(elapsed * 0.006) * 0.015;
         } else {
